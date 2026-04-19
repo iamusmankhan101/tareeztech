@@ -1,0 +1,6 @@
+/* Resetting App.css - All styles move to index.css or components */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
