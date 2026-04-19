@@ -62,9 +62,6 @@ const Hero = () => {
           <a href="#contact" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-all text-center no-underline">
             Book a discovery call
           </a>
-          <a href="#pricing" className="px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 transition-all text-center no-underline">
-            See pricing plans
-          </a>
         </motion.div>
 
         {/* Social Proof */}

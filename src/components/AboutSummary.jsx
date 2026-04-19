@@ -15,7 +15,7 @@ const AboutSummary = () => {
       <div className="container max-w-5xl">
         <div className="text-center">
           <motion.p
-            className="text-2xl md:text-5xl lg:text-6xl font-normal leading-1-4 tracking-tighter text-black max-w-4xl mx-auto"
+            className="text-2xl md:text-6xl lg:text-7xl font-normal leading-1-4 tracking-tighter text-black max-w-5xl mx-auto"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
