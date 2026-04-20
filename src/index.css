@@ -2135,13 +2135,6 @@ a.footer-contact-item:hover {
   max-height: 90vh;
   overflow-y: auto;
 }
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 1.75rem;
-  padding: 2.5rem;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
-  max-height: 90vh;
-  overflow-y: auto;
-}
 
 .discovery-close {
   position: absolute;
