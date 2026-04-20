@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[50vh] md:min-h-screen flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
+    <section className="relative min-h-[50vh] md:min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
       {/* Video Background */}
       <video
         autoPlay
