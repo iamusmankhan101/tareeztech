@@ -1160,17 +1160,21 @@ h6 {
 /* Cards */
 .work-card {
   position: relative;
-  min-width: calc(85vw - 2rem);
+  flex-shrink: 0;
   border-radius: 1.5rem;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  flex-shrink: 0;
   transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  width: calc(100vw - 4rem);
+  max-width: calc(100vw - 4rem);
+  min-width: 0;
 }
 
 @media (min-width: 768px) {
   .work-card {
+    width: auto;
+    max-width: none;
     min-width: calc(50vw - 4rem);
   }
 }

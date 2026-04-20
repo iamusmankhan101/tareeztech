@@ -48,10 +48,11 @@ const Work = () => {
   useEffect(() => {
     const measure = () => {
       if (carousel.current && trackRef.current) {
-        const totalDrag = carousel.current.scrollWidth - carousel.current.offsetWidth;
-        setWidth(totalDrag);
+        const wrapperWidth = carousel.current.offsetWidth;
         const firstCard = trackRef.current.querySelector('.work-card');
         if (firstCard) setCardWidth(firstCard.offsetWidth);
+        const totalDrag = trackRef.current.scrollWidth - wrapperWidth;
+        setWidth(totalDrag);
       }
     };
     measure();
