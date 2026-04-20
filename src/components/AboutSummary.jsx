@@ -15,7 +15,7 @@ const AboutSummary = () => {
       <div className="container max-w-5xl">
         <div className="text-center">
           <motion.p
-            className="text-2xl md:text-6xl lg:text-7xl font-normal leading-1-4 tracking-tighter text-black max-w-5xl mx-auto"
+            className="about-heading text-2xl md:text-6xl lg:text-7xl font-normal leading-1-4 tracking-tighter text-black max-w-5xl mx-auto"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
@@ -57,7 +57,22 @@ const AboutSummary = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <a href="#about-full" className="px-10 py-4 rounded-full border border-[#0d10d3]/30 text-[#0d10d3] text-sm font-medium hover:bg-[#0d10d3]/5 transition-all no-underline inline-block shadow-sm">
+          <a
+            href="#about-full"
+            style={{
+              display: 'inline-block',
+              padding: '1rem 2.5rem',
+              borderRadius: '99px',
+              border: '2px solid #0d10d3',
+              color: '#0d10d3',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              transition: 'background 0.3s, color 0.3s',
+            }}
+            onMouseEnter={e => { e.target.style.background = '#0d10d3'; e.target.style.color = '#fff'; }}
+            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0d10d3'; }}
+          >
             Discover more about us
           </a>
         </motion.div>

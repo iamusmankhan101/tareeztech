@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[50vh] md:min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
+    <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
       {/* Video Background */}
       <video
         autoPlay
@@ -35,7 +35,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight leading-1-1"
+          className="text-4xl md:text-8xl lg:text-9xl font-bold mb-8 tracking-tight leading-1-1"
         >
           Your On-Demand <br />
           <span className="serif-italic">Creative</span> Agency

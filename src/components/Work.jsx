@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 
 const projects = [
   {
@@ -32,7 +32,7 @@ const projects = [
   },
 ];
 
-const GAP = 24; // 1.5rem gap in px
+const GAP = 24;
 
 const Work = () => {
   const carousel = useRef();
@@ -41,13 +41,15 @@ const Work = () => {
   const [cardWidth, setCardWidth] = useState(0);
   const x = useMotionValue(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const cursorX = useMotionValue(-200);
+  const cursorY = useMotionValue(-200);
+  const [cursorVisible, setCursorVisible] = useState(false);
 
   useEffect(() => {
     const measure = () => {
       if (carousel.current && trackRef.current) {
         const totalDrag = carousel.current.scrollWidth - carousel.current.offsetWidth;
         setWidth(totalDrag);
-        // measure the first card's actual rendered width
         const firstCard = trackRef.current.querySelector('.work-card');
         if (firstCard) setCardWidth(firstCard.offsetWidth);
       }
@@ -59,26 +61,38 @@ const Work = () => {
 
   const goTo = (index) => {
     const clamped = Math.max(0, Math.min(projects.length - 1, index));
-    const target = -clamped * (cardWidth + GAP);
-    const clamped_x = Math.max(-width, Math.min(0, target));
-    x.set(clamped_x);
+    const target = Math.max(-width, Math.min(0, -clamped * (cardWidth + GAP)));
+    animate(x, target, { type: 'tween', duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] });
     setCurrentIndex(clamped);
   };
 
-  // sync index when user drags
   const handleDragEnd = () => {
     const current = x.get();
     const nearest = Math.round(-current / (cardWidth + GAP));
     const clamped = Math.max(0, Math.min(projects.length - 1, nearest));
-    const snapped = -clamped * (cardWidth + GAP);
-    x.set(Math.max(-width, Math.min(0, snapped)));
+    const snapped = Math.max(-width, Math.min(0, -clamped * (cardWidth + GAP)));
+    animate(x, snapped, { type: 'tween', duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] });
     setCurrentIndex(clamped);
+  };
+
+  const handleMouseMove = (e) => {
+    cursorX.set(e.clientX);
+    cursorY.set(e.clientY);
   };
 
   return (
     <section id="work" className="work-section">
+      {/* Custom cursor */}
+      <motion.div
+        className="work-cursor"
+        style={{ x: cursorX, y: cursorY, opacity: cursorVisible ? 1 : 0, scale: cursorVisible ? 1 : 0.5 }}
+        transition={{ type: 'tween', duration: 0.08 }}
+      >
+        <span>View</span>
+        <span className="serif-italic">Project</span>
+      </motion.div>
+
       <div className="container">
-        {/* Header Section */}
         <div className="work-header">
           <div className="work-header-left">
             <motion.span
@@ -112,11 +126,12 @@ const Work = () => {
         </div>
       </div>
 
-      {/* Draggable Carousel Area */}
+      {/* Draggable Carousel */}
       <motion.div
         ref={carousel}
         className="work-carousel-wrapper"
-        whileTap={{ cursor: 'grabbing' }}
+        whileTap={{ cursor: 'none' }}
+        onMouseMove={handleMouseMove}
       >
         <motion.div
           ref={trackRef}
@@ -136,40 +151,20 @@ const Work = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="work-card"
+              onMouseEnter={() => setCursorVisible(true)}
+              onMouseLeave={() => setCursorVisible(false)}
+              onClick={() => cursorVisible && window.open(project.link, '_blank')}
+              style={{ cursor: 'none' }}
             >
-              {/* Main Image */}
               <div className="work-card-image-wrap">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="work-card-image"
-                  draggable="false"
-                />
+                <img src={project.image} alt={project.title} className="work-card-image" draggable="false" />
                 <div className="work-card-overlay" />
               </div>
-
-              {/* Badges (Top) */}
               <div className="work-card-badges">
                 {project.category.map((cat, i) => (
                   <span key={i} className="work-badge">{cat}</span>
                 ))}
               </div>
-
-              {/* View Project Circle (Center) */}
-              <div className="work-card-center">
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="work-view-circle"
-                  style={{ pointerEvents: 'auto', textDecoration: 'none' }}
-                >
-                  <span>View</span>
-                  <span className="serif-italic">Project</span>
-                </a>
-              </div>
-
-              {/* Project Info (Bottom) */}
               <div className="work-card-info">
                 <span className="work-card-number">0{index + 1}</span>
                 <h3 className="work-card-title">{project.title}</h3>
@@ -190,28 +185,11 @@ const Work = () => {
           transition={{ delay: 0.3 }}
         >
           <div className="work-progress-bar">
-            <div
-              className="work-progress-fill"
-              style={{ width: `${(currentIndex / (projects.length - 1)) * 100}%` }}
-            />
+            <div className="work-progress-fill" style={{ width: `${(currentIndex / (projects.length - 1)) * 100}%` }} />
           </div>
           <div className="work-scroll-arrows">
-            <button
-              className="work-arrow-btn"
-              onClick={() => goTo(currentIndex - 1)}
-              disabled={currentIndex === 0}
-              aria-label="Previous"
-            >
-              ←
-            </button>
-            <button
-              className="work-arrow-btn"
-              onClick={() => goTo(currentIndex + 1)}
-              disabled={currentIndex === projects.length - 1}
-              aria-label="Next"
-            >
-              →
-            </button>
+            <button className="work-arrow-btn" onClick={() => goTo(currentIndex - 1)} disabled={currentIndex === 0} aria-label="Previous">←</button>
+            <button className="work-arrow-btn" onClick={() => goTo(currentIndex + 1)} disabled={currentIndex === projects.length - 1} aria-label="Next">→</button>
           </div>
         </motion.div>
       </div>
