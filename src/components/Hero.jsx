@@ -35,7 +35,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-8xl lg:text-9xl font-bold mb-8 tracking-tight leading-1-1"
+          className="hero-heading text-4xl font-bold mb-8 tracking-tight leading-1-1"
         >
           Your On-Demand <br />
           <span className="serif-italic">Creative</span> Agency
