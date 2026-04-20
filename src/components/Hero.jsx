@@ -7,22 +7,12 @@ const Hero = () => {
   const btnRef = useRef(null);
   return (
     <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
-      {/* Video Background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
-      >
-        <source src="/hero-bg.mp4" type="video/mp4" />
-      </video>
-      {/* Fallback / overlay image */}
+      {/* Background Image */}
       <div style={{
         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
         backgroundImage: 'url(/b3c1e4e7f4be94a1ce2d01d397afaa87.jpg)',
         backgroundSize: 'cover', backgroundPosition: 'center',
-        zIndex: 0, opacity: 0.35,
+        zIndex: 0,
       }} />
       {/* Dark overlay */}
       <div style={{
