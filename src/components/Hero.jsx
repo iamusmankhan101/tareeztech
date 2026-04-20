@@ -1,6 +1,10 @@
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import DiscoveryPopup from './DiscoveryPopup';
 
 const Hero = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const btnRef = useRef(null);
   return (
     <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
       {/* Video Background */}
@@ -59,11 +63,18 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
-          <a href="#contact" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-all text-center no-underline">
+          <button
+            ref={btnRef}
+            onClick={() => setShowPopup(true)}
+            className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-all text-center cursor-pointer border-none"
+          >
             Book a discovery call
-          </a>
+          </button>
         </motion.div>
 
+        <AnimatePresence>
+          {showPopup && <DiscoveryPopup onClose={() => setShowPopup(false)} />}
+        </AnimatePresence>
         {/* Social Proof */}
 
       </div>
