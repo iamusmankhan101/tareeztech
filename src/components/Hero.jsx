@@ -17,6 +17,13 @@ const Hero = () => {
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
+      {/* Fallback / overlay image */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+        backgroundImage: 'url(/b3c1e4e7f4be94a1ce2d01d397afaa87.jpg)',
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        zIndex: 0, opacity: 0.35,
+      }} />
       {/* Dark overlay */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1,
