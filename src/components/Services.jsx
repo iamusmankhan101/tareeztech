@@ -1,95 +1,132 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Layout, Smartphone, Code, Cpu, Globe, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { Globe, Palette, Megaphone, BarChart } from 'lucide-react';
 
 const services = [
   {
-    icon: <Layout className="w-8 h-8" />,
-    title: 'Web Development',
-    desc: 'High-performance websites built with modern frameworks like React and Next.js.',
-    color: '#00f2ff'
+    icon: Globe,
+    title: 'Web Design & Development',
+    subtitle: 'Fast & Beautiful',
+    desc: 'Custom websites built for performance, conversion, and stunning visual impact.',
   },
   {
-    icon: <Smartphone className="w-8 h-8" />,
-    title: 'Mobile Apps',
-    desc: 'Native and cross-platform mobile solutions designed for scale and usability.',
-    color: '#7000ff'
+    icon: BarChart,
+    title: 'SEO Optimization',
+    subtitle: 'Rank Higher',
+    desc: 'Data-driven SEO strategies to boost your visibility and drive organic traffic.',
+    featured: true,
   },
   {
-    icon: <Code className="w-8 h-8" />,
-    title: 'Software Dev',
-    desc: 'Custom enterprise software tailored to solve your unique business challenges.',
-    color: '#00f2ff'
+    icon: Megaphone,
+    title: 'Social Media Management',
+    subtitle: 'Grow Your Audience',
+    desc: 'Engaging content, consistent posting, and community management across all platforms.',
   },
   {
-    icon: <Cpu className="w-8 h-8" />,
-    title: 'AI Integration',
-    desc: 'Leveraging cutting-edge AI and Machine Learning to automate and optimize.',
-    color: '#7000ff'
+    icon: Palette,
+    title: 'Branding & Identity',
+    subtitle: 'Stand Out',
+    desc: 'Logos, brand systems, and visual identities that leave a lasting impression.',
   },
-  {
-    icon: <Globe className="w-8 h-8" />,
-    title: 'Cloud Solutions',
-    desc: 'Scalable cloud infrastructure and devops for modern digital ecosystems.',
-    color: '#00f2ff'
-  },
-  {
-    icon: <Zap className="w-8 h-8" />,
-    title: 'UI/UX Design',
-    desc: 'Intuitive and engaging user experiences that convert and delight.',
-    color: '#7000ff'
-  }
 ];
 
-const Services = () => {
-  return (
-    <section id="services" className="py-20 bg-[#050608]">
-      <div className="container">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold mb-4"
-          >
-            Our <span className="gradient-text">Services</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="muted max-w-2xl mx-auto"
-          >
-            We provide a comprehensive suite of digital services to help your 
-            business thrive in the modern technological landscape.
-          </motion.p>
-        </div>
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.3 },
+  },
+};
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="glass p-8 rounded-3xl border-white/5 transition-all duration-300 group"
-            >
-              <div 
-                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110"
-                style={{ backgroundColor: `${service.color}15`, color: service.color }}
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: 'spring', stiffness: 260, damping: 22 },
+  },
+};
+
+const Services = () => {
+  const [hovered, setHovered] = useState(1);
+
+  return (
+    <section id="services" className="services-section">
+      <div className="services-container">
+        {/* Header */}
+        <motion.div
+          className="services-header"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.span
+            className="services-label"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            What We Do
+          </motion.span>
+          <motion.p
+            className="services-intro"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            We are pioneers in{' '}
+            <span className="services-intro-highlight">digital craftsmanship</span>,
+            dedicated to helping businesses build powerful online presences that drive
+            innovation, efficiency, and growth.
+          </motion.p>
+        </motion.div>
+
+        {/* Cards */}
+        <motion.div
+          className="services-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            const isActive = hovered === i;
+            return (
+              <motion.div
+                key={i}
+                className={`service-card ${isActive ? 'service-card--active' : ''}`}
+                variants={cardVariants}
+                onMouseEnter={() => setHovered(i)}
+                whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
               >
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-4">{service.title}</h3>
-              <p className="muted leading-relaxed">
-                {service.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+                <div className="service-card-top">
+                  <div className="service-card-icon">
+                    <Icon size={20} />
+                  </div>
+                </div>
+                <div className="service-card-body">
+                  <p className="service-card-subtitle">{s.subtitle}</p>
+                  <h3 className="service-card-title">{s.title}</h3>
+                  {isActive && (
+                    <motion.p
+                      className="service-card-desc"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {s.desc}
+                    </motion.p>
+                  )}
+                </div>
+                <a href="#contact" className="service-card-btn">Talk With Us</a>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

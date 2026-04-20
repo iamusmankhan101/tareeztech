@@ -89,11 +89,9 @@ const Contact = () => {
                   >
                     <option value="" disabled>Select a service...</option>
                     <option>Web Design & Development</option>
-                    <option>UI/UX Design</option>
+                    <option>SEO Optimization</option>
+                    <option>Social Media Management</option>
                     <option>Branding & Identity</option>
-                    <option>SEO & Marketing</option>
-                    <option>Mobile App Development</option>
-                    <option>Other</option>
                   </select>
                 </div>
                 <div className="contact-field">

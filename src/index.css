@@ -2303,3 +2303,205 @@ a.footer-contact-item:hover {
 /* ============================
    END DISCOVERY POPUP
    ============================ */
+
+/* ============================
+   SERVICES SECTION
+   ============================ */
+.services-section {
+  background: var(--bg-dark);
+  padding: 7rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(13, 16, 211, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.services-header {
+  margin-bottom: 3.5rem;
+  max-width: 680px;
+}
+
+.services-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.services-intro {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.services-intro-highlight {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--accent-secondary);
+}
+
+/* Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Card */
+.service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color 0.4s, background 0.4s, box-shadow 0.4s, transform 0.4s;
+  min-height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-card--active {
+  background: linear-gradient(170deg, rgba(13, 16, 211, 0.08) 0%, rgba(0, 242, 255, 0.04) 60%, rgba(13, 16, 211, 0.15) 100%);
+  border-color: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 0 1px rgba(0, 242, 255, 0.2), 0 20px 60px rgba(13, 16, 211, 0.25);
+  transform: translateY(-6px);
+}
+
+/* Circuit pattern on active */
+.service-card--active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 55%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='rgba(0,242,255,0.15)' stroke-width='1'%3E%3Cpath d='M10 10 L40 10 L40 40 L70 40'/%3E%3Cpath d='M70 10 L70 70 L100 70'/%3E%3Cpath d='M10 70 L40 70 L40 100 L70 100'/%3E%3Ccircle cx='40' cy='10' r='3' fill='rgba(0,242,255,0.2)'/%3E%3Ccircle cx='70' cy='40' r='3' fill='rgba(0,242,255,0.2)'/%3E%3Ccircle cx='40' cy='70' r='3' fill='rgba(0,242,255,0.2)'/%3E%3Ccircle cx='100' cy='70' r='3' fill='rgba(0,242,255,0.2)'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 80px 80px;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.service-card-top {
+  padding: 1.5rem 1.25rem 1rem;
+  flex: 1;
+}
+
+.service-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0d10d3, #00f2ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  box-shadow: 0 4px 16px rgba(13, 16, 211, 0.4);
+}
+
+.service-card-body {
+  padding: 0 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.service-card-subtitle {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.service-card-title {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.service-card--active .service-card-title {
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.service-card-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin-top: 0.4rem;
+}
+
+.service-card-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+  text-align: center;
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+.service-card--active .service-card-btn {
+  background: linear-gradient(135deg, #0d10d3, #00a8b8);
+  border-top-color: transparent;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.service-card-btn:hover {
+  background: rgba(0, 242, 255, 0.1);
+  color: #fff;
+}
+/* ============================
+   END SERVICES SECTION
+   ============================ */
