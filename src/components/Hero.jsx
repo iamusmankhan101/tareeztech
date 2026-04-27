@@ -19,13 +19,19 @@ const Hero = () => {
   return (
     <>
       <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
-        {/* Background Image */}
-        <div style={{
-          position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-          backgroundImage: 'url(/b3c1e4e7f4be94a1ce2d01d397afaa87.jpg)',
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          zIndex: 0,
-        }} />
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+            objectFit: 'cover', zIndex: 0,
+          }}
+        >
+          <source src="/tareez reel 1 (Facebook Ad).mp4" type="video/mp4" />
+        </video>
         {/* Dark overlay */}
         <div style={{
           position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1,
