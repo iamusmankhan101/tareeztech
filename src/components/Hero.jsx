@@ -18,7 +18,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000' }}>
+      <section className="relative hero-section flex flex-col items-center justify-center pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-48" style={{ overflow: 'hidden', background: '#000', minHeight: '90vh' }}>
         {/* Background Video */}
         <video
           autoPlay
