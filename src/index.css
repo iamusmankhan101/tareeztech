@@ -1094,6 +1094,7 @@ h6 {
 
 .work-carousel-track {
   display: flex;
+  width: max-content;
   gap: 1.5rem;
   padding: 0 2rem;
   will-change: transform;

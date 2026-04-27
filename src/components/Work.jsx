@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import { motion, useMotionValue, animate, useSpring } from 'framer-motion';
 
 const projects = [
@@ -65,34 +65,60 @@ const Work = () => {
   const smoothCursorX = useSpring(cursorX, springConfig);
   const smoothCursorY = useSpring(cursorY, springConfig);
 
-  useEffect(() => {
-    const measure = () => {
-      if (carousel.current && trackRef.current) {
-        const wrapperWidth = carousel.current.offsetWidth;
-        const firstCard = trackRef.current.querySelector('.work-card');
-        if (firstCard) setCardWidth(firstCard.offsetWidth);
-        const totalDrag = trackRef.current.scrollWidth - wrapperWidth;
-        setWidth(totalDrag);
+  const measure = () => {
+    if (carousel.current && trackRef.current) {
+      const wrapperWidth = carousel.current.offsetWidth;
+      const firstCard = trackRef.current.querySelector('.work-card');
+      if (firstCard) {
+        const cw = firstCard.offsetWidth;
+        setCardWidth(cw);
       }
-    };
-    
-    // Initial measure
+      // Use getBoundingClientRect for more precision with sub-pixel layouts
+      const trackWidth = trackRef.current.scrollWidth;
+      const totalDrag = Math.max(0, trackWidth - wrapperWidth);
+      setWidth(totalDrag);
+    }
+  };
+
+  useLayoutEffect(() => {
     measure();
     
-    // Extra measure after a small delay to ensure layout is final
-    const timer = setTimeout(measure, 500);
-    
-    window.addEventListener('resize', measure);
+    // Resize observer to catch any container or track size changes
+    const resizeObserver = new ResizeObserver(() => {
+      measure();
+    });
+
+    if (carousel.current) resizeObserver.observe(carousel.current);
+    if (trackRef.current) resizeObserver.observe(trackRef.current);
+
+    // Also measure when images finish loading
+    const images = trackRef.current?.querySelectorAll('img');
+    images?.forEach(img => {
+      if (img.complete) measure();
+      else img.addEventListener('load', measure);
+    });
+
+    // Final fallback measurement
+    const timer = setTimeout(measure, 1000);
+
     return () => {
-      window.removeEventListener('resize', measure);
+      resizeObserver.disconnect();
       clearTimeout(timer);
+      images?.forEach(img => img.removeEventListener('load', measure));
     };
   }, []);
 
   const goTo = (index) => {
     const clamped = Math.max(0, Math.min(projects.length - 1, index));
+    // Calculate target based on the card's position relative to the track start
     const target = Math.max(-width, Math.min(0, -clamped * (cardWidth + GAP)));
-    animate(x, target, { type: 'spring', stiffness: 300, damping: 30 });
+    
+    animate(x, target, { 
+      type: 'spring', 
+      stiffness: 250, 
+      damping: 30,
+      restDelta: 0.01
+    });
     setCurrentIndex(clamped);
   };
 
@@ -100,15 +126,15 @@ const Work = () => {
 
   const handleDragEnd = (event, info) => {
     setIsDragging(false);
-    const current = x.get();
-    
-    // Use velocity to help decide which card to snap to
+    const currentX = x.get();
     const velocity = info.velocity.x;
-    let targetIndex = Math.round(-current / (cardWidth + GAP));
     
-    if (Math.abs(velocity) > 500) {
-      if (velocity < 0) targetIndex += 1;
-      else targetIndex -= 1;
+    // Determine the closest index based on current position
+    let targetIndex = Math.round(-currentX / (cardWidth + GAP));
+    
+    // Factor in velocity for better "flick" feel
+    if (Math.abs(velocity) > 400) {
+      targetIndex = velocity < 0 ? targetIndex + 1 : targetIndex - 1;
     }
 
     const clamped = Math.max(0, Math.min(projects.length - 1, targetIndex));
@@ -116,12 +142,25 @@ const Work = () => {
     
     animate(x, snapped, { 
       type: 'spring', 
-      stiffness: 300, 
+      stiffness: 250, 
       damping: 30,
-      velocity: info.velocity.x // Pass current velocity for smoother transition
+      velocity: velocity,
+      restDelta: 0.01
     });
     setCurrentIndex(clamped);
   };
+
+  // Sync currentIndex based on X position during drag or animation
+  useEffect(() => {
+    const unsubscribe = x.on('change', (latest) => {
+      const idx = Math.round(-latest / (cardWidth + GAP));
+      const clamped = Math.max(0, Math.min(projects.length - 1, idx));
+      if (clamped !== currentIndex) {
+        setCurrentIndex(clamped);
+      }
+    });
+    return () => unsubscribe();
+  }, [cardWidth, currentIndex, x]);
 
   const handleMouseMove = (e) => {
     cursorX.set(e.clientX);
@@ -209,8 +248,8 @@ const Work = () => {
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
               className="work-card"
               onClick={() => handleProjectClick(project.link)}
               whileHover={{ y: -10 }}
