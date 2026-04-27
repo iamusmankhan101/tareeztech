@@ -70,8 +70,8 @@ const Footer = () => {
               </p>
 
               <div className="footer-contact-list">
-                <a href="tel:+923212669945" className="footer-contact-item">
-                  <Phone size={14} /> +92 321 266 9945
+                <a href="tel:+923082669945" className="footer-contact-item">
+                  <Phone size={14} /> 0308 2669945
                 </a>
                 <a href="mailto:hello@tareeztech.com" className="footer-contact-item">
                   <Mail size={14} /> hello@tareeztech.com

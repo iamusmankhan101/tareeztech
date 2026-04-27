@@ -11,7 +11,7 @@ const DiscoveryPopup = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const msg = `Hello Tareez Tech! 👋\n\nDiscovery Call Request\n\nName: ${form.name}\nEmail: ${form.email}\nInterested In: ${form.service}\n\nMessage:\n${form.message}`;
-    window.open(`https://wa.me/923212669945?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/923082669945?text=${encodeURIComponent(msg)}`, '_blank');
     setSent(true);
   };
 

@@ -41,7 +41,7 @@ const projects = [
     title: 'Golf Club Marquee',
     desc: 'Premium event venue in Jhelum for weddings, conferences and celebrations.',
     category: ['Web Design & Development', 'Events'],
-    image: '/golf-club.png',
+    image: '/Screenshot 2026-04-19 at 4.13.23 PM.png',
     link: 'https://golfclubmarquee.pk',
   },
 ];

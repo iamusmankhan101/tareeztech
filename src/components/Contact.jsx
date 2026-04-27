@@ -11,7 +11,7 @@ const Contact = () => {
     e.preventDefault();
     const message = `Hello Tareez Tech! 👋\n\nName: ${form.name}\nEmail: ${form.email}\nInterested In: ${form.service}\n\nMessage:\n${form.message}`;
     const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/923212669945?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/923082669945?text=${encoded}`, '_blank');
     setSent(true);
   };
 
@@ -146,7 +146,7 @@ const Contact = () => {
 
             {/* WhatsApp Button */}
             <motion.a
-              href="https://wa.me/923212669945"
+              href="https://wa.me/923082669945"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-whatsapp"
