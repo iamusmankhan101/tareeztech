@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionValue, animate, useSpring } from 'framer-motion';
 
 const projects = [
   {
@@ -44,6 +44,12 @@ const Work = () => {
   const cursorX = useMotionValue(-200);
   const cursorY = useMotionValue(-200);
   const [cursorVisible, setCursorVisible] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Smooth springs for cursor
+  const springConfig = { stiffness: 500, damping: 40, mass: 0.5 };
+  const smoothCursorX = useSpring(cursorX, springConfig);
+  const smoothCursorY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     const measure = () => {
@@ -55,24 +61,51 @@ const Work = () => {
         setWidth(totalDrag);
       }
     };
+    
+    // Initial measure
     measure();
+    
+    // Extra measure after a small delay to ensure layout is final
+    const timer = setTimeout(measure, 500);
+    
     window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    return () => {
+      window.removeEventListener('resize', measure);
+      clearTimeout(timer);
+    };
   }, []);
 
   const goTo = (index) => {
     const clamped = Math.max(0, Math.min(projects.length - 1, index));
     const target = Math.max(-width, Math.min(0, -clamped * (cardWidth + GAP)));
-    animate(x, target, { type: 'tween', duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] });
+    animate(x, target, { type: 'spring', stiffness: 300, damping: 30 });
     setCurrentIndex(clamped);
   };
 
-  const handleDragEnd = () => {
+  const handleDragStart = () => setIsDragging(true);
+
+  const handleDragEnd = (event, info) => {
+    setIsDragging(false);
     const current = x.get();
-    const nearest = Math.round(-current / (cardWidth + GAP));
-    const clamped = Math.max(0, Math.min(projects.length - 1, nearest));
+    
+    // Use velocity to help decide which card to snap to
+    const velocity = info.velocity.x;
+    let targetIndex = Math.round(-current / (cardWidth + GAP));
+    
+    if (Math.abs(velocity) > 500) {
+      if (velocity < 0) targetIndex += 1;
+      else targetIndex -= 1;
+    }
+
+    const clamped = Math.max(0, Math.min(projects.length - 1, targetIndex));
     const snapped = Math.max(-width, Math.min(0, -clamped * (cardWidth + GAP)));
-    animate(x, snapped, { type: 'tween', duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] });
+    
+    animate(x, snapped, { 
+      type: 'spring', 
+      stiffness: 300, 
+      damping: 30,
+      velocity: info.velocity.x // Pass current velocity for smoother transition
+    });
     setCurrentIndex(clamped);
   };
 
@@ -81,13 +114,24 @@ const Work = () => {
     cursorY.set(e.clientY);
   };
 
+  const handleProjectClick = (link) => {
+    if (!isDragging) {
+      window.open(link, '_blank');
+    }
+  };
+
   return (
     <section id="work" className="work-section">
       {/* Custom cursor */}
       <motion.div
         className="work-cursor"
-        style={{ x: cursorX, y: cursorY, opacity: cursorVisible ? 1 : 0, scale: cursorVisible ? 1 : 0.5 }}
-        transition={{ type: 'tween', duration: 0.08 }}
+        style={{ 
+          x: smoothCursorX, 
+          y: smoothCursorY, 
+          opacity: cursorVisible ? 1 : 0, 
+          scale: cursorVisible ? 1 : 0.3,
+          rotate: isDragging ? 15 : 0
+        }}
       >
         <span>View</span>
         <span className="serif-italic">Project</span>
@@ -128,18 +172,20 @@ const Work = () => {
       </div>
 
       {/* Draggable Carousel */}
-      <motion.div
+      <div
         ref={carousel}
         className="work-carousel-wrapper"
-        whileTap={{ cursor: 'none' }}
         onMouseMove={handleMouseMove}
+        onMouseEnter={() => setCursorVisible(true)}
+        onMouseLeave={() => setCursorVisible(false)}
+        style={{ cursor: 'none' }}
       >
         <motion.div
           ref={trackRef}
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
-          dragElastic={0.08}
-          dragTransition={{ bounceStiffness: 300, bounceDamping: 30 }}
+          dragElastic={0.15}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           style={{ x }}
           className="work-carousel-track"
@@ -149,12 +195,11 @@ const Work = () => {
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
               className="work-card"
-              onMouseEnter={() => setCursorVisible(true)}
-              onMouseLeave={() => setCursorVisible(false)}
-              onClick={() => cursorVisible && window.open(project.link, '_blank')}
+              onClick={() => handleProjectClick(project.link)}
+              whileHover={{ y: -10 }}
               style={{ cursor: 'none' }}
             >
               <div className="work-card-image-wrap">
@@ -174,7 +219,7 @@ const Work = () => {
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Progress + Arrows */}
       <div className="container">
