@@ -3,6 +3,20 @@ import { motion, useMotionValue, animate, useSpring } from 'framer-motion';
 
 const projects = [
   {
+    title: 'Tareez Fashion',
+    desc: 'A high-end e-commerce destination for premium traditional and contemporary fashion.',
+    category: ['Web Design & Development', 'E-commerce', 'Fashion'],
+    image: '/Screenshot 2026-04-27 at 11.53.29 PM.png',
+    link: 'https://tareezfashion.com',
+  },
+  {
+    title: 'Restaurant 47',
+    desc: 'An authentic culinary experience showcasing exquisite flavors and a refined dining atmosphere.',
+    category: ['Web Design & Development', 'Hospitality', 'Restaurant'],
+    image: '/Screenshot 2026-04-27 at 11.54.58 PM.png',
+    link: 'https://www.47wigston.co.uk/',
+  },
+  {
     title: 'The Optimus',
     desc: 'Premium real estate platform showcasing luxury properties and developments across Dubai, UAE.',
     category: ['Web Design & Development', 'Real Estate'],
