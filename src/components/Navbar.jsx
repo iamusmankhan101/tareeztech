@@ -55,7 +55,9 @@ const Navbar = () => {
 
         {/* Logo Section */}
         <div className="flex items-center gap-2 pr-2 md:pl-4 md:pr-6 md:border-r border-white/10 py-1">
-          <img src="/logo.png" alt="Tareez Tech Logo" className="h-20 md:h-16 lg:h-18 -my-2 md:my-0 w-auto object-contain transition-all" />
+          <a href="https://tareeztech.com" className="cursor-pointer">
+            <img src="/logo.png" alt="Tareez Tech Logo" className="h-20 md:h-16 lg:h-18 -my-2 md:my-0 w-auto object-contain transition-all hover:opacity-80" />
+          </a>
         </div>
 
         {/* Desktop Links */}
