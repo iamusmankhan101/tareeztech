@@ -43,10 +43,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Work', href: '#work' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Work', href: '/#work' },
+    { name: 'Services', href: '/#services' },
+    { name: 'About', href: '/#about' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -73,7 +73,7 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center pl-4 pr-2">
-          <a href="#contact" className="px-6 py-2 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors">
+          <a href="/#contact" className="px-6 py-2 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors">
             Get Started
           </a>
         </div>
@@ -110,7 +110,7 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="h-px bg-white/10 my-2 mx-4" />
-              <a href="#contact" className="px-6 py-4 mx-2 rounded-full bg-white text-black text-center text-base font-semibold active:scale-95 transition-all mb-2 no-underline" onClick={() => setIsOpen(false)}>
+              <a href="/#contact" className="px-6 py-4 mx-2 rounded-full bg-white text-black text-center text-base font-semibold active:scale-95 transition-all mb-2 no-underline" onClick={() => setIsOpen(false)}>
                 Get Started
               </a>
             </div>

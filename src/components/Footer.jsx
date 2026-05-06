@@ -3,20 +3,20 @@ import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 const links = {
   Company: [
-    { label: 'About Us', href: '#about' },
-    { label: 'Our Work', href: '#work' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About Us', href: '/#about' },
+    { label: 'Our Work', href: '/#work' },
+    { label: 'Contact', href: '/#contact' },
   ],
   Services: [
-    { label: 'Web Design & Development', href: '#' },
-    { label: 'UI/UX Design', href: '#' },
-    { label: 'Branding', href: '#' },
-    { label: 'SEO & Marketing', href: '#' },
+    { label: 'Web Design & Development', href: '/#services' },
+    { label: 'UI/UX Design', href: '/#services' },
+    { label: 'Branding', href: '/#services' },
+    { label: 'SEO & Marketing', href: '/#services' },
   ],
   Legal: [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Cookie Policy', href: '#' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Terms of Service', href: '/terms-and-conditions' },
+    { label: 'Cookie Policy', href: '/privacy-policy' },
   ],
 };
 
@@ -41,7 +41,7 @@ const Footer = () => {
             <h2 className="footer-cta-title">Ready to start your project?</h2>
             <p className="footer-cta-sub">Let's turn your vision into a world-class digital product.</p>
           </div>
-          <a href="#contact" className="footer-cta-btn">
+          <a href="/#contact" className="footer-cta-btn">
             Get Started <ArrowUpRight size={18} />
           </a>
         </div>
