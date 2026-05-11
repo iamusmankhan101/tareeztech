@@ -45,7 +45,7 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="text-[#00f2ff] text-sm font-medium mb-12 mt-16 tracking-wide uppercase"
           >
-            Your Gateway to Creative Excellence
+            Your Top-Rated Digital Marketing Agency in Lahore
           </motion.p>
 
           <motion.h1
@@ -54,8 +54,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hero-heading text-4xl font-bold mb-8 tracking-tight leading-1-1"
           >
-            Your On-Demand <br />
-            <span className="serif-italic">Creative</span> Agency
+            Premium <span className="serif-italic">Web Design</span> & <br />
+            Development Company
           </motion.h1>
 
           <motion.p
@@ -64,8 +64,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-base md:text-lg text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            We are a design and development studio dedicated to crafting <br className="hidden md:block" />
-            innovative digital solutions that shape the future.
+            We are a premium web design and development company dedicated to crafting innovative digital solutions. From custom web development services to result-driven SEO, we help brands lead the market.
           </motion.p>
 
           <motion.div

@@ -5,13 +5,16 @@ const links = {
   Company: [
     { label: 'About Us', href: '/#about' },
     { label: 'Our Work', href: '/#work' },
+    { label: 'Digital Marketing Portfolio', href: '/#work' },
+    { label: 'Digital Marketing Jobs in Lahore', href: '/#contact' },
     { label: 'Contact', href: '/#contact' },
   ],
   Services: [
-    { label: 'Web Design & Development', href: '/#services' },
-    { label: 'UI/UX Design', href: '/#services' },
-    { label: 'Branding', href: '/#services' },
-    { label: 'SEO & Marketing', href: '/#services' },
+    { label: 'Custom Web Development', href: '/#services' },
+    { label: 'Web App Development Services', href: '/#services' },
+    { label: 'Digital Marketing Lahore', href: '/#services' },
+    { label: 'Graphic Design Video Editing', href: '/#services' },
+    { label: 'Ecommerce & Digital Marketing', href: '/#services' },
   ],
   Legal: [
     { label: 'Privacy Policy', href: '/privacy-policy' },
@@ -39,7 +42,7 @@ const Footer = () => {
         <div className="footer-cta-inner">
           <div>
             <h2 className="footer-cta-title">Ready to start your project?</h2>
-            <p className="footer-cta-sub">Let's turn your vision into a world-class digital product.</p>
+            <p className="footer-cta-sub">Partner with the best web development company in Lahore and top digital marketing agency to transform your business.</p>
           </div>
           <a href="/#contact" className="footer-cta-btn">
             Get Started <ArrowUpRight size={18} />
@@ -66,7 +69,7 @@ const Footer = () => {
                 <img src="/logo.png" alt="Tareez Tech" />
               </a>
               <p className="footer-tagline">
-                We craft digital experiences that drive growth — from sleek websites to powerful web apps.
+                Leading digital marketing agency in Lahore and web development company offering custom web development services, web design and development, and comprehensive digital marketing solutions across Pakistan.
               </p>
 
               <div className="footer-contact-list">
@@ -77,7 +80,7 @@ const Footer = () => {
                   <Mail size={14} /> hello@tareeztech.com
                 </a>
                 <span className="footer-contact-item">
-                  <MapPin size={14} /> Pakistan · United Kingdom
+                  <MapPin size={14} /> Looking for web development near me? Visit our office in Lahore or connect with us for remote digital marketing services worldwide.
                 </span>
               </div>
 

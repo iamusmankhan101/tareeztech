@@ -4,10 +4,14 @@ import { motion } from 'framer-motion';
 const AboutSummary = () => {
   const words = [
     { text: 'Tareez Tech', muted: false },
-    { text: 'is a hub of', muted: true },
-    { text: 'creativity and innovation.', muted: false },
-    { text: "We're dedicated to", muted: true },
-    { text: 'bringing your brand to life through unique, impactful design solutions.', muted: false },
+    { text: 'is the premier', muted: true },
+    { text: 'Web Development Company in Lahore,', muted: false },
+    { text: "bridging the gap between creativity and ROI. As a leading", muted: true },
+    { text: 'Digital Marketing Expert in Pakistan,', muted: false },
+    { text: "we provide tailored strategies that bring your brand to life. Whether you need", muted: true },
+    { text: 'WordPress Web Development Services', muted: false },
+    { text: 'or a full-scale digital transformation, our team of experts is here to', muted: true },
+    { text: 'build your future.', muted: false },
   ];
 
   return (
