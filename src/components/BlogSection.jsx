@@ -44,8 +44,15 @@ const BlogSection = () => {
           "slug": slug.current,
           publishedAt,
           excerpt,
-          mainImage
+          mainImage {
+            asset->{
+              _id,
+              url
+            }
+          }
         }`);
+        
+        console.log('Fetched posts:', data); // Debug log
         
         // Use dummy posts if no posts in Sanity
         setRecentPosts(data.length > 0 ? data : dummyPosts);
@@ -69,7 +76,7 @@ const BlogSection = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-[#f8f9fa]">
+      <section className="py-20 bg-white">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center">
             <p className="text-gray-500">Loading blog posts...</p>
@@ -84,7 +91,7 @@ const BlogSection = () => {
   }
 
   return (
-    <section className="py-16 bg-[#f8f9fa]">
+    <section className="py-16 bg-white">
       <div className="container max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -133,7 +140,13 @@ const BlogSection = () => {
                   {/* Image */}
                   <div className="relative h-[130px] w-full overflow-hidden bg-gray-100">
                     <img 
-                      src={post.mainImage ? urlFor(post.mainImage).width(400).height(260).url() : '/tech.jpg'} 
+                      src={
+                        post.mainImage?.asset?.url 
+                          ? post.mainImage.asset.url 
+                          : post.mainImage 
+                            ? urlFor(post.mainImage).width(400).height(260).url() 
+                            : '/tech.jpg'
+                      } 
                       alt={post.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {
