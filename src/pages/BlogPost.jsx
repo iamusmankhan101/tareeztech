@@ -206,14 +206,14 @@ const BlogPost = () => {
       </div>
 
       {/* Article Content */}
-      <div className="container max-w-4xl mx-auto px-4 py-16">
+      <div className="container max-w-4xl mx-auto px-4 py-16 pt-8">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           {/* Content */}
-          <div className="prose prose-lg max-w-none mb-12">
+          <div className="prose prose-lg max-w-none mb-12 mt-8">
             {post.body ? <PortableText value={post.body} /> : <p>No content available.</p>}
           </div>
 
@@ -326,26 +326,28 @@ const BlogPost = () => {
           font-size: 1.875rem;
           font-weight: 700;
           color: #1f2937;
-          margin-top: 2.5rem;
-          margin-bottom: 1rem;
+          margin-top: 3rem;
+          margin-bottom: 1.25rem;
         }
         .prose h3 {
           font-size: 1.5rem;
           font-weight: 600;
           color: #1f2937;
-          margin-top: 2rem;
-          margin-bottom: 0.75rem;
+          margin-top: 2.5rem;
+          margin-bottom: 1rem;
         }
         .prose p {
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.5rem;
           color: #4b5563;
+          line-height: 1.8;
         }
         .prose ul, .prose ol {
           margin-left: 1.5rem;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.5rem;
+          margin-top: 1.5rem;
         }
         .prose li {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.75rem;
           color: #4b5563;
         }
         .prose strong {
