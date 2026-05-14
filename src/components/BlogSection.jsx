@@ -29,7 +29,7 @@ const BlogSection = () => {
   }, []);
 
   const formatDate = (dateString) => {
-    if (!dateString) return '';
+    if (!dateString) return 'Recently Published';
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',

@@ -77,7 +77,7 @@ const BlogPost = () => {
   return (
     <div style={{ minHeight: '100vh', background: '#fff' }}>
       {/* Article Container */}
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '140px 24px 60px' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '140px 24px 60px' }}>
 
         {/* Back link */}
         <motion.div
@@ -122,6 +122,16 @@ const BlogPost = () => {
         >
           {post.title}
         </motion.h1>
+
+        {/* Published Date */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          style={{ fontSize: 14, color: '#a0aec0', marginBottom: 28, fontWeight: 500 }}
+        >
+          {formatDate(post.publishedAt)}
+        </motion.p>
 
         {/* Hero area: Image + Meta side by side */}
         <motion.div
@@ -299,7 +309,7 @@ const BlogPost = () => {
 
       {/* Recent Posts */}
       {recentPosts.length > 0 && (
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px 80px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: '48px 24px 80px' }}>
           <h2 style={{ fontSize: 24, fontWeight: 700, color: '#1a202c', marginBottom: 24 }}>Recent Posts</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
             {recentPosts.map((rp) => (
