@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Facebook, Twitter, Link2 } from 'lucide-react';
+import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Link2 } from 'lucide-react';
 import { getPostBySlug, getRecentPosts } from '../data/blogPosts';
 
 const BlogPost = () => {
@@ -171,14 +171,14 @@ const BlogPost = () => {
                 className="p-3 rounded-xl bg-gray-800 hover:bg-[#1877f2] text-gray-400 hover:text-white transition-all group"
                 title="Share on Facebook"
               >
-                <Facebook size={20} />
+                <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('twitter')}
                 className="p-3 rounded-xl bg-gray-800 hover:bg-[#1da1f2] text-gray-400 hover:text-white transition-all"
                 title="Share on Twitter"
               >
-                <Twitter size={20} />
+                <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('linkedin')}
@@ -204,13 +204,13 @@ const BlogPost = () => {
               onClick={() => handleShare('facebook')}
               className="p-2 rounded-lg bg-gray-900 hover:bg-[#1877f2] text-gray-400 hover:text-white transition-all"
             >
-              <Facebook size={18} />
+              <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('twitter')}
               className="p-2 rounded-lg bg-gray-900 hover:bg-[#1da1f2] text-gray-400 hover:text-white transition-all"
             >
-              <Twitter size={18} />
+              <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('linkedin')}
