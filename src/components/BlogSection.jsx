@@ -3,33 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { client, urlFor } from '../lib/sanity';
 
-const PLACEHOLDER_POSTS = [
-  {
-    _id: 'placeholder-1',
-    title: 'Revolutionizing Team Collaboration: The CollabNex Way',
-    slug: '',
-    publishedAt: '2022-04-08',
-    excerpt: 'Discover how CollabNex is changing the game in team collaboration, boosting productivity and sparking creativity.',
-    mainImage: null,
-  },
-  {
-    _id: 'placeholder-2',
-    title: 'Unleashing Creativity: How CollabNex Inspires Innovation',
-    slug: '',
-    publishedAt: '2022-03-15',
-    excerpt: 'Explore how CollabNex nurtures a culture of creativity, empowering teams to unleash their full innovative potential.',
-    mainImage: null,
-  },
-  {
-    _id: 'placeholder-3',
-    title: 'Efficiency Redefined: The Power of CollabNex Task Management',
-    slug: '',
-    publishedAt: '2022-02-28',
-    excerpt: "Learn how CollabNex's task management features streamline workflows, increase efficiency, and keep projects on track.",
-    mainImage: null,
-  },
-];
-
 const BlogSection = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,17 +20,10 @@ const BlogSection = () => {
         }`
       )
       .then((data) => {
-        // Always ensure exactly 3 cards
-        const merged = [...data];
-        let i = 0;
-        while (merged.length < 3) {
-          merged.push(PLACEHOLDER_POSTS[i]);
-          i++;
-        }
-        setPosts(merged);
+        setPosts(data);
       })
       .catch(() => {
-        setPosts(PLACEHOLDER_POSTS);
+        setPosts([]);
       })
       .finally(() => setLoading(false));
   }, []);
