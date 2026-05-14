@@ -5,7 +5,7 @@ import imageUrlBuilder from '@sanity/image-url';
 export const client = createClient({
   projectId: 'g5bfkjdx',
   dataset: 'production',
-  useCdn: true, // set to `false` to bypass the edge cache
+  useCdn: false, // set to `false` to bypass the edge cache and get fresh data
   apiVersion: '2024-05-14', // use current date (YYYY-MM-DD) to target the latest API version
 });
 

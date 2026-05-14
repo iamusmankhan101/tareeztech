@@ -7,38 +7,11 @@ const BlogSection = () => {
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Dummy posts to show when Sanity has no posts yet
-  const dummyPosts = [
-    {
-      _id: 'dummy-1',
-      title: 'Revolutionizing Team Collaboration: The CollabNex Way',
-      slug: { current: '#' },
-      publishedAt: '2022-04-08',
-      excerpt: 'Discover how CollabNex is changing the game in team collaboration, boosting productivity and sparking creativity.',
-      mainImage: null,
-    },
-    {
-      _id: 'dummy-2',
-      title: 'Unleashing Creativity: How CollabNex Inspires Innovation',
-      slug: { current: '#' },
-      publishedAt: '2022-03-15',
-      excerpt: 'Explore how CollabNex nurtures a culture of creativity, empowering teams to unleash their full innovative potential.',
-      mainImage: null,
-    },
-    {
-      _id: 'dummy-3',
-      title: 'Efficiency Redefined: The Power of CollabNex Task Management',
-      slug: { current: '#' },
-      publishedAt: '2022-02-28',
-      excerpt: 'Learn how CollabNex\'s task management features streamline workflows, increase efficiency, and keep projects on track.',
-      mainImage: null,
-    },
-  ];
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...3]{
+        // Fetch published posts only
+        const data = await client.fetch(`*[_type == "post" && defined(slug.current)] | order(publishedAt desc)[0...3]{
           _id,
           title,
           "slug": slug.current,
@@ -52,14 +25,11 @@ const BlogSection = () => {
           }
         }`);
         
-        console.log('Fetched posts:', data); // Debug log
-        
-        // Use dummy posts if no posts in Sanity
-        setRecentPosts(data.length > 0 ? data : dummyPosts);
+        console.log('Fetched Sanity posts:', data);
+        setRecentPosts(data);
       } catch (error) {
         console.error('Error fetching posts:', error);
-        // Use dummy posts on error
-        setRecentPosts(dummyPosts);
+        setRecentPosts([]);
       } finally {
         setLoading(false);
       }
