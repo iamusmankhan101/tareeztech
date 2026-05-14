@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Link2 } from 'lucide-react';
+import { ArrowLeft, Tag } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 import { client, urlFor } from '../lib/sanity';
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +19,7 @@ const BlogPost = () => {
       "post": *[_type == "post" && slug.current == $slug][0]{
         _id,
         title,
-        "author": author->name,
+        "author": author->{name, image},
         "categories": categories[]->title,
         publishedAt,
         body,
@@ -47,319 +46,383 @@ const BlogPost = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="min-h-screen bg-white pt-32 pb-20 flex items-center justify-center text-gray-800 text-xl">Loading...</div>;
+    return (
+      <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 120 }}>
+        <p style={{ color: '#999', fontSize: 18 }}>Loading…</p>
+      </div>
+    );
   }
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-white pt-32 pb-20">
-        <div className="container max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 border border-gray-200 mb-6">
-            <Tag size={32} className="text-gray-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#0d10d3] to-[#00f2ff] text-white rounded-full font-semibold hover:shadow-lg hover:shadow-[#0d10d3]/30 transition-all"
-          >
-            <ArrowLeft size={20} />
-            Back to Blog
-          </Link>
-        </div>
+      <div style={{ minHeight: '100vh', background: '#fff', paddingTop: 140, textAlign: 'center' }}>
+        <Tag size={32} style={{ color: '#ccc', marginBottom: 16 }} />
+        <h1 style={{ fontSize: 32, fontWeight: 700, color: '#1a202c', marginBottom: 12 }}>Post Not Found</h1>
+        <p style={{ color: '#718096', marginBottom: 24 }}>The blog post you're looking for doesn't exist.</p>
+        <Link to="/blog" style={{ color: '#0d10d3', fontWeight: 600, textDecoration: 'none' }}>
+          ← Back to Blog
+        </Link>
       </div>
     );
   }
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const getReadTime = (blocks) => {
-    if (!blocks || !Array.isArray(blocks)) return '1 min read';
-    const text = blocks
-      .filter(block => block._type === 'block' && block.children)
-      .map(block => block.children.map(child => child.text).join(''))
-      .join(' ');
-    const wordsPerMinute = 200;
-    const wordCount = text.split(/\s+/).length;
-    const minutes = Math.ceil(wordCount / wordsPerMinute) || 1;
-    return `${minutes} min read`;
-  };
-
-  const handleShare = async (platform) => {
-    const url = window.location.href;
-    const text = post.title;
-
-    if (platform === 'native' && navigator.share) {
-      try {
-        await navigator.share({
-          title: post.title,
-          text: post.excerpt,
-          url: url,
-        });
-      } catch (err) {
-        console.log('Share cancelled');
-      }
-    } else if (platform === 'copy') {
-      navigator.clipboard.writeText(url);
-      alert('Link copied to clipboard!');
-    } else if (platform === 'facebook') {
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-    } else if (platform === 'twitter') {
-      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-    } else if (platform === 'linkedin') {
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
-    }
-  };
+  const authorName = post.author?.name || 'Tareez Tech Team';
+  const authorInitial = authorName.charAt(0).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section with Image */}
-      <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
-        {/* Animated Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d10d3] via-[#0d10d3] to-[#00f2ff]">
-          {post.mainImage && (
-            <img 
-              src={urlFor(post.mainImage).url()} 
-              alt={post.title}
-              className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50"
-            />
-          )}
-          {/* Animated Pattern Overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-0" style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-              backgroundSize: '40px 40px',
-            }}></div>
-          </div>
-          
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black"></div>
-        </div>
+    <div style={{ minHeight: '100vh', background: '#fff' }}>
+      {/* Article Container */}
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: '140px 24px 60px' }}>
 
-        {/* Content */}
-        <div className="relative h-full flex items-end pb-16 pt-32">
-          <div className="container max-w-5xl mx-auto px-4">
-            {/* Back Button */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mb-8"
-            >
-              <Link
-                to="/blog"
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white font-semibold hover:gap-3 transition-all backdrop-blur-sm bg-black/20 px-4 py-2 rounded-full border border-white/10"
-              >
-                <ArrowLeft size={20} />
-                Back to Blog
-              </Link>
-            </motion.div>
-
-            {/* Category Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mb-6"
-            >
-              <span className="inline-block px-5 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-bold rounded-full border border-white/20">
-                {post.categories?.[0] || 'Blog'}
-              </span>
-            </motion.div>
-
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl"
-            >
-              {post.title}
-            </motion.h1>
-
-            {/* Meta Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap items-center gap-6 text-white/80"
-            >
-              <span className="flex items-center gap-2">
-                <User size={18} />
-                {post.author}
-              </span>
-              <span className="flex items-center gap-2">
-                <Calendar size={18} />
-                {formatDate(post.publishedAt)}
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock size={18} />
-                {getReadTime(post.body)}
-              </span>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* Article Content */}
-      <div className="container max-w-4xl mx-auto px-4 py-16 pt-8">
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+        {/* Back link */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ marginBottom: 32 }}
         >
-          {/* Content */}
-          <div className="prose prose-lg max-w-none mb-12 mt-8">
-            {post.body ? <PortableText value={post.body} /> : <p>No content available.</p>}
-          </div>
+          <Link
+            to="/blog"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              color: '#718096',
+              fontSize: 14,
+              fontWeight: 500,
+              textDecoration: 'none',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#1a202c')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#718096')}
+          >
+            <ArrowLeft size={16} />
+            Back to Blog
+          </Link>
+        </motion.div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap items-center gap-3 mb-12 pb-12 border-b border-gray-200">
-            <span className="flex items-center gap-2 text-gray-600 font-semibold mr-2">
-              <Tag size={18} className="text-[#00f2ff]" />
-              Categories:
-            </span>
-            {(post.categories || []).map((cat, index) => (
+        {/* Title */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 2.75rem)',
+            fontWeight: 700,
+            color: '#1a202c',
+            lineHeight: 1.25,
+            marginBottom: 32,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {post.title}
+        </motion.h1>
+
+        {/* Hero area: Image + Meta side by side */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: post.mainImage ? '1fr 200px' : '1fr',
+            gap: 32,
+            marginBottom: 40,
+            alignItems: 'start',
+          }}
+        >
+          {/* Featured Image */}
+          {post.mainImage && (
+            <div
+              style={{
+                width: '100%',
+                aspectRatio: '16/10',
+                borderRadius: 12,
+                overflow: 'hidden',
+                background: '#f5f5f5',
+              }}
+            >
+              <img
+                src={urlFor(post.mainImage).width(800).height(500).url()}
+                alt={post.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
+          )}
+
+          {/* Meta Sidebar */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {/* Categories */}
+            {post.categories && post.categories.length > 0 && (
+              <div>
+                <p style={{ fontSize: 12, fontWeight: 600, color: '#a0aec0', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+                  Category
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  {post.categories.map((cat, i) => (
+                    <span
+                      key={i}
+                      style={{
+                        display: 'inline-block',
+                        padding: '5px 12px',
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: '#4a5568',
+                        background: '#f7fafc',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: 6,
+                      }}
+                    >
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Author */}
+            <div>
+              <p style={{ fontSize: 12, fontWeight: 600, color: '#a0aec0', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
+                Written by
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                {/* Author Avatar */}
+                {post.author?.image ? (
+                  <img
+                    src={urlFor(post.author.image).width(80).height(80).url()}
+                    alt={authorName}
+                    style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #0d10d3, #00f2ff)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#fff',
+                      fontSize: 16,
+                      fontWeight: 700,
+                    }}
+                  >
+                    {authorInitial}
+                  </div>
+                )}
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: '#1a202c', marginBottom: 2 }}>{authorName}</p>
+                  <p style={{ fontSize: 12, color: '#a0aec0' }}>{formatDate(post.publishedAt)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Divider */}
+        <hr style={{ border: 'none', borderTop: '1px solid #edf2f7', marginBottom: 36 }} />
+
+        {/* Article Body */}
+        <motion.article
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="blog-article-body"
+        >
+          {post.body ? <PortableText value={post.body} /> : <p style={{ color: '#718096' }}>No content available.</p>}
+        </motion.article>
+
+        {/* Tags Footer */}
+        {post.categories && post.categories.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginTop: 48, paddingTop: 24, borderTop: '1px solid #edf2f7' }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#a0aec0', marginRight: 4 }}>Tags:</span>
+            {post.categories.map((cat, i) => (
               <span
-                key={index}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium border border-gray-200 hover:border-[#0d10d3]/50 hover:text-gray-900 transition-all cursor-pointer"
+                key={i}
+                style={{
+                  padding: '4px 12px',
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: '#4a5568',
+                  background: '#f7fafc',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 999,
+                }}
               >
                 {cat}
               </span>
             ))}
           </div>
-
-          {/* Author Card */}
-          <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 mb-12">
-            <div className="flex items-start gap-6">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 uppercase">
-                {post.author ? post.author.charAt(0) : 'T'}
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Written by {post.author || 'Tareez Tech Team'}</h3>
-                <p className="text-gray-600 mb-4">
-                  Expert team at Tareez Tech specializing in digital marketing and web development. 
-                  Helping businesses grow through innovative digital solutions.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="relative overflow-hidden bg-gradient-to-r from-[#0d10d3] to-[#00f2ff] rounded-3xl p-8 md:p-12 text-center text-white mb-12">
-            {/* Pattern Overlay */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute inset-0" style={{
-                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                backgroundSize: '32px 32px',
-              }}></div>
-            </div>
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
-              <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-                Let's discuss how our digital marketing and web development services can help you achieve your goals.
-              </p>
-              <Link
-                to="/#contact"
-                className="inline-block px-10 py-4 bg-white text-[#0d10d3] rounded-full font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
-        </motion.article>
-
-        {/* Recent Posts */}
-        {recentPosts.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Posts</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recentPosts.map((recentPost) => (
-                <Link
-                  key={recentPost.id}
-                  to={`/blog/${recentPost.slug}`}
-                  className="group"
-                >
-                  <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100">
-                    <div className="h-40 bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center relative overflow-hidden">
-                      {recentPost.mainImage ? (
-                        <img 
-                          src={urlFor(recentPost.mainImage).url()} 
-                          alt={recentPost.title}
-                          className="absolute inset-0 w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-white text-xl font-bold opacity-20 relative z-10">
-                          {recentPost.category || 'Blog'}
-                        </span>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <span className="text-xs text-gray-500">{formatDate(recentPost.publishedAt)}</span>
-                      <h3 className="text-lg font-bold text-gray-900 mt-2 mb-2 group-hover:text-[#0d10d3] transition-colors line-clamp-2">
-                        {recentPost.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {recentPost.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
         )}
+
+        {/* CTA */}
+        <div
+          style={{
+            marginTop: 48,
+            padding: '40px 32px',
+            background: 'linear-gradient(135deg, #0d10d3, #00f2ff)',
+            borderRadius: 20,
+            textAlign: 'center',
+            color: '#fff',
+          }}
+        >
+          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 10 }}>Ready to Transform Your Business?</h2>
+          <p style={{ fontSize: 15, opacity: 0.9, marginBottom: 20, maxWidth: 480, margin: '0 auto 20px' }}>
+            Let's discuss how our digital marketing and web development services can help you achieve your goals.
+          </p>
+          <Link
+            to="/#contact"
+            style={{
+              display: 'inline-block',
+              padding: '12px 32px',
+              background: '#fff',
+              color: '#0d10d3',
+              fontSize: 14,
+              fontWeight: 700,
+              borderRadius: 999,
+              textDecoration: 'none',
+              transition: 'transform 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            Contact Us
+          </Link>
+        </div>
       </div>
 
-      {/* Custom Styles for Blog Content */}
-      <style jsx>{`
-        .prose h2 {
-          font-size: 1.875rem;
-          font-weight: 700;
-          color: #1f2937;
-          margin-top: 3rem;
-          margin-bottom: 1.25rem;
-        }
-        .prose h3 {
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: #1f2937;
-          margin-top: 2.5rem;
-          margin-bottom: 1rem;
-        }
-        .prose p {
-          margin-bottom: 1.5rem;
-          color: #4b5563;
+      {/* Recent Posts */}
+      {recentPosts.length > 0 && (
+        <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 24px 80px' }}>
+          <h2 style={{ fontSize: 24, fontWeight: 700, color: '#1a202c', marginBottom: 24 }}>Recent Posts</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
+            {recentPosts.map((rp) => (
+              <Link
+                key={rp._id}
+                to={`/blog/${rp.slug}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div
+                  style={{
+                    background: '#fff',
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    border: '1px solid #edf2f7',
+                    transition: 'box-shadow 0.3s, transform 0.3s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div style={{ height: 120, background: '#f0f0f0', overflow: 'hidden' }}>
+                    {rp.mainImage ? (
+                      <img
+                        src={urlFor(rp.mainImage).width(400).height(250).url()}
+                        alt={rp.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #0d10d3, #00f2ff)', opacity: 0.6 }} />
+                    )}
+                  </div>
+                  <div style={{ padding: 14 }}>
+                    <p style={{ fontSize: 11, color: '#a0aec0', marginBottom: 6 }}>{formatDate(rp.publishedAt)}</p>
+                    <h3 style={{
+                      fontSize: 15,
+                      fontWeight: 700,
+                      color: '#1a202c',
+                      lineHeight: 1.35,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {rp.title}
+                    </h3>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Article Styles */}
+      <style>{`
+        .blog-article-body p {
+          font-size: 16px;
           line-height: 1.8;
+          color: #4a5568;
+          margin-bottom: 1.5em;
         }
-        .prose ul, .prose ol {
-          margin-left: 1.5rem;
-          margin-bottom: 1.5rem;
-          margin-top: 1.5rem;
+        .blog-article-body h2 {
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: #1a202c;
+          margin-top: 2.5em;
+          margin-bottom: 0.75em;
+          line-height: 1.3;
         }
-        .prose li {
-          margin-bottom: 0.75rem;
-          color: #4b5563;
+        .blog-article-body h3 {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: #1a202c;
+          margin-top: 2em;
+          margin-bottom: 0.6em;
+          line-height: 1.35;
         }
-        .prose strong {
-          color: #0d10d3;
-          font-weight: 600;
+        .blog-article-body ul,
+        .blog-article-body ol {
+          padding-left: 1.5em;
+          margin-bottom: 1.5em;
         }
-        .prose a {
+        .blog-article-body li {
+          font-size: 16px;
+          line-height: 1.8;
+          color: #4a5568;
+          margin-bottom: 0.5em;
+        }
+        .blog-article-body strong {
+          color: #1a202c;
+          font-weight: 700;
+        }
+        .blog-article-body em {
+          color: #4a5568;
+        }
+        .blog-article-body a {
           color: #0d10d3;
           text-decoration: underline;
         }
-        .prose a:hover {
+        .blog-article-body a:hover {
           color: #0a0da8;
+        }
+        .blog-article-body blockquote {
+          border-left: 3px solid #0d10d3;
+          padding-left: 1em;
+          margin: 1.5em 0;
+          color: #4a5568;
+          font-style: italic;
+        }
+        .blog-article-body img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          margin: 1.5em 0;
+        }
+        @media (max-width: 640px) {
+          .blog-article-body h2 { font-size: 1.35rem; }
+          .blog-article-body h3 { font-size: 1.15rem; }
         }
       `}</style>
     </div>
