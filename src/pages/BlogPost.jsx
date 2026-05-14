@@ -47,18 +47,18 @@ const BlogPost = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="min-h-screen bg-black pt-32 pb-20 flex items-center justify-center text-white text-xl">Loading...</div>;
+    return <div className="min-h-screen bg-white pt-32 pb-20 flex items-center justify-center text-gray-800 text-xl">Loading...</div>;
   }
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-black pt-32 pb-20">
+      <div className="min-h-screen bg-white pt-32 pb-20">
         <div className="container max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-900 border border-gray-800 mb-6">
-            <Tag size={32} className="text-gray-600" />
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 border border-gray-200 mb-6">
+            <Tag size={32} className="text-gray-400" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
-          <p className="text-gray-400 mb-8">The blog post you're looking for doesn't exist.</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
+          <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#0d10d3] to-[#00f2ff] text-white rounded-full font-semibold hover:shadow-lg hover:shadow-[#0d10d3]/30 transition-all"
@@ -116,7 +116,7 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white">
       {/* Hero Section with Image */}
       <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
         {/* Animated Background Gradient */}
@@ -214,31 +214,31 @@ const BlogPost = () => {
         >
           {/* Floating Share Sidebar */}
           <div className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 z-50">
-            <div className="flex flex-col gap-3 bg-gray-900 border border-gray-800 rounded-2xl p-3 shadow-xl">
+            <div className="flex flex-col gap-3 bg-white border border-gray-200 rounded-2xl p-3 shadow-xl">
               <button
                 onClick={() => handleShare('facebook')}
-                className="p-3 rounded-xl bg-gray-800 hover:bg-[#1877f2] text-gray-400 hover:text-white transition-all group"
+                className="p-3 rounded-xl bg-gray-100 hover:bg-[#1877f2] text-gray-600 hover:text-white transition-all group"
                 title="Share on Facebook"
               >
                 <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('twitter')}
-                className="p-3 rounded-xl bg-gray-800 hover:bg-[#1da1f2] text-gray-400 hover:text-white transition-all"
+                className="p-3 rounded-xl bg-gray-100 hover:bg-[#1da1f2] text-gray-600 hover:text-white transition-all"
                 title="Share on Twitter"
               >
                 <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('linkedin')}
-                className="p-3 rounded-xl bg-gray-800 hover:bg-[#0077b5] text-gray-400 hover:text-white transition-all"
+                className="p-3 rounded-xl bg-gray-100 hover:bg-[#0077b5] text-gray-600 hover:text-white transition-all"
                 title="Share on LinkedIn"
               >
                 <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('copy')}
-                className="p-3 rounded-xl bg-gray-800 hover:bg-[#0d10d3] text-gray-400 hover:text-white transition-all"
+                className="p-3 rounded-xl bg-gray-100 hover:bg-[#0d10d3] text-gray-600 hover:text-white transition-all"
                 title="Copy Link"
               >
                 <Link2 size={20} />
@@ -247,49 +247,49 @@ const BlogPost = () => {
           </div>
 
           {/* Mobile Share Buttons */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-12 pb-8 border-b border-gray-800">
-            <span className="text-gray-400 text-sm font-semibold mr-2">Share:</span>
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-12 pb-8 border-b border-gray-200">
+            <span className="text-gray-600 text-sm font-semibold mr-2">Share:</span>
             <button
               onClick={() => handleShare('facebook')}
-              className="p-2 rounded-lg bg-gray-900 hover:bg-[#1877f2] text-gray-400 hover:text-white transition-all"
+              className="p-2 rounded-lg bg-gray-100 hover:bg-[#1877f2] text-gray-600 hover:text-white transition-all"
             >
               <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('twitter')}
-              className="p-2 rounded-lg bg-gray-900 hover:bg-[#1da1f2] text-gray-400 hover:text-white transition-all"
+              className="p-2 rounded-lg bg-gray-100 hover:bg-[#1da1f2] text-gray-600 hover:text-white transition-all"
             >
               <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('linkedin')}
-              className="p-2 rounded-lg bg-gray-900 hover:bg-[#0077b5] text-gray-400 hover:text-white transition-all"
+              className="p-2 rounded-lg bg-gray-100 hover:bg-[#0077b5] text-gray-600 hover:text-white transition-all"
             >
               <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('copy')}
-              className="p-2 rounded-lg bg-gray-900 hover:bg-[#0d10d3] text-gray-400 hover:text-white transition-all"
+              className="p-2 rounded-lg bg-gray-100 hover:bg-[#0d10d3] text-gray-600 hover:text-white transition-all"
             >
               <Link2 size={18} />
             </button>
           </div>
 
           {/* Content */}
-          <div className="prose prose-lg prose-invert max-w-none mb-12">
+          <div className="prose prose-lg max-w-none mb-12">
             {post.body ? <PortableText value={post.body} /> : <p>No content available.</p>}
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap items-center gap-3 mb-12 pb-12 border-b border-gray-800">
-            <span className="flex items-center gap-2 text-gray-400 font-semibold mr-2">
+          <div className="flex flex-wrap items-center gap-3 mb-12 pb-12 border-b border-gray-200">
+            <span className="flex items-center gap-2 text-gray-600 font-semibold mr-2">
               <Tag size={18} className="text-[#00f2ff]" />
               Categories:
             </span>
             {(post.categories || []).map((cat, index) => (
               <span
                 key={index}
-                className="px-4 py-2 bg-gray-900 text-gray-300 rounded-full text-sm font-medium border border-gray-800 hover:border-[#0d10d3]/50 hover:text-white transition-all cursor-pointer"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium border border-gray-200 hover:border-[#0d10d3]/50 hover:text-gray-900 transition-all cursor-pointer"
               >
                 {cat}
               </span>
@@ -297,20 +297,20 @@ const BlogPost = () => {
           </div>
 
           {/* Author Card */}
-          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 mb-12">
             <div className="flex items-start gap-6">
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 uppercase">
                 {post.author ? post.author.charAt(0) : 'T'}
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-2">Written by {post.author || 'Tareez Tech Team'}</h3>
-                <p className="text-gray-400 mb-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Written by {post.author || 'Tareez Tech Team'}</h3>
+                <p className="text-gray-600 mb-4">
                   Expert team at Tareez Tech specializing in digital marketing and web development. 
                   Helping businesses grow through innovative digital solutions.
                 </p>
                 <Link
                   to="/#contact"
-                  className="inline-flex items-center gap-2 text-[#00f2ff] hover:text-white font-semibold text-sm transition-colors"
+                  className="inline-flex items-center gap-2 text-[#00f2ff] hover:text-[#0d10d3] font-semibold text-sm transition-colors"
                 >
                   Get in touch <ArrowLeft size={16} className="rotate-180" />
                 </Link>
@@ -350,7 +350,7 @@ const BlogPost = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h2 className="text-3xl font-bold text-black mb-8">Recent Posts</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {recentPosts.map((recentPost) => (
                 <Link
@@ -374,7 +374,7 @@ const BlogPost = () => {
                     </div>
                     <div className="p-4">
                       <span className="text-xs text-gray-500">{formatDate(recentPost.publishedAt)}</span>
-                      <h3 className="text-lg font-bold text-black mt-2 mb-2 group-hover:text-[#0d10d3] transition-colors line-clamp-2">
+                      <h3 className="text-lg font-bold text-gray-900 mt-2 mb-2 group-hover:text-[#0d10d3] transition-colors line-clamp-2">
                         {recentPost.title}
                       </h3>
                       <p className="text-sm text-gray-600 line-clamp-2">
@@ -394,14 +394,14 @@ const BlogPost = () => {
         .prose h2 {
           font-size: 1.875rem;
           font-weight: 700;
-          color: #000;
+          color: #1f2937;
           margin-top: 2.5rem;
           margin-bottom: 1rem;
         }
         .prose h3 {
           font-size: 1.5rem;
           font-weight: 600;
-          color: #000;
+          color: #1f2937;
           margin-top: 2rem;
           margin-bottom: 0.75rem;
         }
