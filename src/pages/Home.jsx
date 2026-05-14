@@ -4,6 +4,7 @@ import AboutSummary from '../components/AboutSummary';
 import Work from '../components/Work';
 import Services from '../components/Services';
 import Testimonials from '../components/Testimonials';
+import BlogSection from '../components/BlogSection';
 import Contact from '../components/Contact';
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
       <Work />
       <Services />
       <Testimonials />
+      <BlogSection />
       <Contact />
     </>
   );
