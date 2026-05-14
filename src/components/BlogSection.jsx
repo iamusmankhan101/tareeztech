@@ -100,7 +100,7 @@ const BlogSection = () => {
           {recentPosts.map((post) => (
             <motion.article
               key={post._id}
-              className="bg-white rounded-3xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col"
+              className="bg-white rounded-2xl p-3 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col"
               variants={{
                 hidden: { opacity: 0, y: 50 },
                 visible: { opacity: 1, y: 0 },
@@ -126,7 +126,7 @@ const BlogSection = () => {
 const BlogCardContent = ({ post, formatDate }) => (
   <>
     {/* Image */}
-    <div className="relative h-[240px] w-full rounded-2xl overflow-hidden mb-6">
+    <div className="relative h-[180px] w-full rounded-2xl overflow-hidden mb-4 bg-gray-50">
       <img 
         src={post.mainImage ? urlFor(post.mainImage).url() : '/tech.jpg'} 
         alt={post.title}
@@ -137,17 +137,17 @@ const BlogCardContent = ({ post, formatDate }) => (
     {/* Content */}
     <div className="px-2 flex-1 flex flex-col">
       {/* Date */}
-      <p className="text-[13px] font-medium text-gray-400 mb-3">
+      <p className="text-xs font-medium text-gray-400 mb-2">
         {formatDate(post.publishedAt)}
       </p>
 
       {/* Title */}
-      <h3 className="text-[22px] font-bold text-[#1c1f33] mb-4 leading-snug group-hover:text-blue-600 transition-colors">
+      <h3 className="text-lg font-bold text-[#1c1f33] mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
         {post.title}
       </h3>
 
       {/* Description */}
-      <p className="text-gray-500 leading-relaxed text-[15px] line-clamp-3 mb-2">
+      <p className="text-gray-500 leading-relaxed text-sm line-clamp-3 mb-1">
         {post.excerpt}
       </p>
     </div>
