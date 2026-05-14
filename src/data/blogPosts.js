@@ -262,7 +262,7 @@ export const blogPosts = [
     tags: ['Career', 'Digital Marketing Jobs', 'Lahore', 'Remote Work'],
   },
   {
-    id: 4,
+    id: 5,
     slug: 'ecommerce-and-digital-marketing-strategies',
     title: 'Ecommerce and Digital Marketing: Winning Strategies for 2026',
     excerpt: 'Master the art of combining ecommerce and digital marketing. Learn proven strategies to boost your online store sales and customer engagement.',
@@ -336,7 +336,7 @@ export const blogPosts = [
     tags: ['Ecommerce', 'Digital Marketing', 'Online Business', 'Sales'],
   },
   {
-    id: 5,
+    id: 6,
     slug: 'what-is-digital-marketing-agency',
     title: 'What is a Digital Marketing Agency? Everything You Need to Know',
     excerpt: 'Understand what a digital marketing agency does, the services they offer, and how to choose the right agency for your business in Lahore.',
