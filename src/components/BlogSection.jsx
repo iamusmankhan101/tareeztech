@@ -76,10 +76,10 @@ const BlogSection = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-black">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center">
-            <p className="text-gray-500">Loading blog posts...</p>
+            <p className="text-gray-400">Loading blog posts...</p>
           </div>
         </div>
       </section>
@@ -91,7 +91,7 @@ const BlogSection = () => {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-black">
       <div className="container max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -101,10 +101,10 @@ const BlogSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-[2.5rem] md:text-[3rem] font-bold text-[#2d3748] mb-3 tracking-tight">
+          <h2 className="text-[2.5rem] md:text-[3rem] font-bold text-white mb-3 tracking-tight">
             Blog Articles
           </h2>
-          <p className="text-base text-[#718096] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Stay informed and inspired with our blog, featuring insightful<br />
             articles and updates on a variety of topics.
           </p>
@@ -158,17 +158,17 @@ const BlogSection = () => {
                   {/* Content */}
                   <div className="p-4 flex-1 flex flex-col">
                     {/* Date */}
-                    <p className="text-[0.7rem] font-medium text-[#a0aec0] mb-2 tracking-wide uppercase">
+                    <p className="text-[0.7rem] font-medium text-gray-400 mb-2 tracking-wide uppercase">
                       {formatDate(post.publishedAt)}
                     </p>
 
                     {/* Title */}
-                    <h3 className="text-[1.05rem] font-bold text-[#2d3748] mb-2 leading-snug group-hover:text-[#4299e1] transition-colors line-clamp-2">
+                    <h3 className="text-[1.05rem] font-bold text-gray-900 mb-2 leading-snug group-hover:text-[#4299e1] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[#718096] leading-relaxed text-[0.8rem] line-clamp-3 flex-1">
+                    <p className="text-gray-600 leading-relaxed text-[0.8rem] line-clamp-3 flex-1">
                       {post.excerpt}
                     </p>
                   </div>
@@ -188,7 +188,7 @@ const BlogSection = () => {
         >
           <Link 
             to="/blog"
-            className="inline-block px-7 py-2.5 bg-[#2d3748] text-white text-sm font-semibold rounded-full hover:bg-[#1a202c] transition-colors duration-300"
+            className="inline-block px-7 py-2.5 bg-white text-black text-sm font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300"
           >
             View All Articles
           </Link>
