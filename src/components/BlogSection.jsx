@@ -76,7 +76,7 @@ const BlogSection = () => {
           {recentPosts.map((post, index) => (
             <motion.article
               key={post.id}
-              className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+              className="group relative bg-white overflow-hidden shadow-md hover:shadow-xl transition-all duration-500"
               variants={{
                 hidden: { opacity: 0, y: 50 },
                 visible: { opacity: 1, y: 0 },
@@ -85,7 +85,7 @@ const BlogSection = () => {
             >
               {/* Image */}
               <Link to={`/blog/${post.slug}`}>
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-72 overflow-hidden">
                   {/* Placeholder Image with Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#0d10d3] via-purple-500 to-[#00f2ff]">
                     {/* Pattern Overlay */}
@@ -103,30 +103,30 @@ const BlogSection = () => {
               </Link>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-8">
                 {/* Date Label */}
-                <div className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wide">
-                  {post.category} - {formatDate(post.date)}
+                <div className="text-sm font-semibold text-gray-600 mb-6 uppercase tracking-wider">
+                  BLOGS - {formatDate(post.date).toUpperCase()}
                 </div>
 
                 {/* Title */}
                 <Link to={`/blog/${post.slug}`}>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#0d10d3] transition-colors line-clamp-2 leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 group-hover:text-[#0d10d3] transition-colors line-clamp-2 leading-tight">
                     {post.title}
                   </h3>
                 </Link>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 mb-6 line-clamp-2 leading-relaxed">
+                <p className="text-gray-700 mb-8 line-clamp-2 leading-relaxed text-base">
                   {post.excerpt}
                 </p>
 
                 {/* Read More Link */}
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-[#0d10d3] font-bold text-base group-hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-[#003d5c] font-bold text-lg group-hover:gap-3 transition-all hover:text-[#0d10d3]"
                 >
-                  Read More <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  Read More <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </motion.article>
