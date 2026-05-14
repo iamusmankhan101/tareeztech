@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, ArrowRight, Clock, TrendingUp } from 'lucide-react';
 import { getRecentPosts } from '../data/blogPosts';
 
 const BlogSection = () => {
@@ -12,15 +11,18 @@ const BlogSection = () => {
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  const getReadTime = (content) => {
-    const wordsPerMinute = 200;
-    const wordCount = content.split(/\s+/).length;
-    const minutes = Math.ceil(wordCount / wordsPerMinute);
-    return `${minutes} min read`;
-  };
-
   return (
-    <section className="relative py-32 bg-white overflow-hidden">
+    <section className="relative py-24 bg-white overflow-hidden font-sans">
+      {/* Subtle Concentric Circles Background */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] pointer-events-none flex items-center justify-center opacity-[0.04] -translate-y-1/2">
+        <div className="absolute w-[1200px] h-[1200px] rounded-full border border-black"></div>
+        <div className="absolute w-[1000px] h-[1000px] rounded-full border border-black"></div>
+        <div className="absolute w-[800px] h-[800px] rounded-full border border-black"></div>
+        <div className="absolute w-[600px] h-[600px] rounded-full border border-black"></div>
+        <div className="absolute w-[400px] h-[400px] rounded-full border border-black"></div>
+        <div className="absolute w-[200px] h-[200px] rounded-full border border-black"></div>
+      </div>
+
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -30,29 +32,17 @@ const BlogSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0d10d3]/10 border border-[#0d10d3]/20 mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <TrendingUp size={16} className="text-[#0d10d3]" />
-            <span className="text-[#0d10d3] text-sm font-semibold uppercase tracking-wider">
-              Latest Insights
-            </span>
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mt-4 mb-6 tracking-tight">
-            Expert Tips & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0d10d3] to-[#00f2ff]">Insights</span>
+          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-[#1c1f33] mb-6 tracking-tight">
+            Blog Articles
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Master digital marketing, web development, and business growth strategies from industry experts.
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+            Stay informed and inspired with our blog, featuring insightful articles and updates on a variety of topics.
           </p>
         </motion.div>
 
         {/* Blog Cards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -65,81 +55,45 @@ const BlogSection = () => {
             },
           }}
         >
-          {recentPosts.map((post, index) => (
+          {recentPosts.map((post) => (
             <motion.article
               key={post.id}
-              className="group relative bg-white overflow-hidden shadow-md hover:shadow-xl transition-all duration-500"
+              className="bg-white rounded-3xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col"
               variants={{
                 hidden: { opacity: 0, y: 50 },
                 visible: { opacity: 1, y: 0 },
               }}
-              whileHover={{ y: -8 }}
             >
-              {/* Image */}
-              <Link to={`/blog/${post.slug}`}>
-                <div className="relative h-72 overflow-hidden">
-                  {/* Placeholder Image with Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#0d10d3] via-purple-500 to-[#00f2ff]">
-                    {/* Pattern Overlay */}
-                    <div className="absolute inset-0 opacity-20">
-                      <div className="absolute inset-0" style={{
-                        backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                        backgroundSize: '32px 32px',
-                      }}></div>
-                    </div>
-                  </div>
-                  
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
-                </div>
-              </Link>
-
-              {/* Content */}
-              <div className="p-8">
-                {/* Date Label */}
-                <div className="text-sm font-semibold text-gray-600 mb-6 uppercase tracking-wider">
-                  BLOGS - {formatDate(post.date).toUpperCase()}
+              <Link to={`/blog/${post.slug}`} className="flex-1 flex flex-col group">
+                {/* Image */}
+                <div className="relative h-[240px] w-full rounded-2xl overflow-hidden mb-6">
+                  <img 
+                    src={post.image || '/tech.jpg'} 
+                    alt={post.title}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
 
-                {/* Title */}
-                <Link to={`/blog/${post.slug}`}>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 group-hover:text-[#0d10d3] transition-colors line-clamp-2 leading-tight">
+                {/* Content */}
+                <div className="px-2 flex-1 flex flex-col">
+                  {/* Date */}
+                  <p className="text-[13px] font-medium text-gray-400 mb-3">
+                    {formatDate(post.date)}
+                  </p>
+
+                  {/* Title */}
+                  <h3 className="text-[22px] font-bold text-[#1c1f33] mb-4 leading-snug group-hover:text-blue-600 transition-colors">
                     {post.title}
                   </h3>
-                </Link>
 
-                {/* Excerpt */}
-                <p className="text-gray-700 mb-8 line-clamp-2 leading-relaxed text-base">
-                  {post.excerpt}
-                </p>
-
-                {/* Read More Link */}
-                <Link
-                  to={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-[#003d5c] font-bold text-lg group-hover:gap-3 transition-all hover:text-[#0d10d3]"
-                >
-                  Read More <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+                  {/* Description */}
+                  <p className="text-gray-500 leading-relaxed text-[15px] line-clamp-3 mb-2">
+                    {post.excerpt}
+                  </p>
+                </div>
+              </Link>
             </motion.article>
           ))}
-        </motion.div>
-
-        {/* View All Button */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <Link
-            to="/blog"
-            className="group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#0d10d3] to-[#0d10d3] hover:from-[#00f2ff] hover:to-[#0d10d3] text-white rounded-full font-bold text-base shadow-lg shadow-[#0d10d3]/30 hover:shadow-[#00f2ff]/40 transition-all duration-500 hover:scale-105"
-          >
-            View All Articles
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
         </motion.div>
       </div>
     </section>
@@ -147,3 +101,4 @@ const BlogSection = () => {
 };
 
 export default BlogSection;
+
