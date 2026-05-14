@@ -3,6 +3,30 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { client, urlFor } from '../lib/sanity';
 
+const DUMMY_POSTS = [
+  {
+    _id: 'dummy-1',
+    title: 'The Future of Web Development',
+    slug: '',
+    publishedAt: new Date().toISOString(),
+    excerpt: 'Explore the latest trends and technologies shaping the future of web development and digital experiences.',
+  },
+  {
+    _id: 'dummy-2',
+    title: 'Maximizing Your Digital Presence',
+    slug: '',
+    publishedAt: new Date().toISOString(),
+    excerpt: 'Learn strategies to enhance your brand visibility and connect with your target audience effectively.',
+  },
+  {
+    _id: 'dummy-3',
+    title: 'Understanding Modern SEO',
+    slug: '',
+    publishedAt: new Date().toISOString(),
+    excerpt: 'A comprehensive guide to optimizing your website for search engines in the modern digital landscape.',
+  }
+];
+
 const BlogSection = () => {
   const [recentPosts, setRecentPosts] = useState([]);
 
@@ -14,7 +38,13 @@ const BlogSection = () => {
       publishedAt,
       excerpt,
       mainImage
-    }`).then((data) => setRecentPosts(data)).catch(console.error);
+    }`).then((data) => {
+      const posts = [...data];
+      while (posts.length < 3) {
+        posts.push(DUMMY_POSTS[posts.length]);
+      }
+      setRecentPosts(posts);
+    }).catch(console.error);
   }, []);
 
   const formatDate = (dateString) => {
@@ -76,34 +106,15 @@ const BlogSection = () => {
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              <Link to={`/blog/${post.slug}`} className="flex-1 flex flex-col group">
-                {/* Image */}
-                <div className="relative h-[240px] w-full rounded-2xl overflow-hidden mb-6">
-                  <img 
-                    src={post.mainImage ? urlFor(post.mainImage).url() : '/tech.jpg'} 
-                    alt={post.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  />
+              {post.slug ? (
+                <Link to={`/blog/${post.slug}`} className="flex-1 flex flex-col group">
+                  <BlogCardContent post={post} formatDate={formatDate} />
+                </Link>
+              ) : (
+                <div className="flex-1 flex flex-col group cursor-default">
+                  <BlogCardContent post={post} formatDate={formatDate} />
                 </div>
-
-                {/* Content */}
-                <div className="px-2 flex-1 flex flex-col">
-                  {/* Date */}
-                  <p className="text-[13px] font-medium text-gray-400 mb-3">
-                    {formatDate(post.publishedAt)}
-                  </p>
-
-                  {/* Title */}
-                  <h3 className="text-[22px] font-bold text-[#1c1f33] mb-4 leading-snug group-hover:text-blue-600 transition-colors">
-                    {post.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-500 leading-relaxed text-[15px] line-clamp-3 mb-2">
-                    {post.excerpt}
-                  </p>
-                </div>
-              </Link>
+              )}
             </motion.article>
           ))}
         </motion.div>
@@ -111,6 +122,37 @@ const BlogSection = () => {
     </section>
   );
 };
+
+const BlogCardContent = ({ post, formatDate }) => (
+  <>
+    {/* Image */}
+    <div className="relative h-[240px] w-full rounded-2xl overflow-hidden mb-6">
+      <img 
+        src={post.mainImage ? urlFor(post.mainImage).url() : '/tech.jpg'} 
+        alt={post.title}
+        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+
+    {/* Content */}
+    <div className="px-2 flex-1 flex flex-col">
+      {/* Date */}
+      <p className="text-[13px] font-medium text-gray-400 mb-3">
+        {formatDate(post.publishedAt)}
+      </p>
+
+      {/* Title */}
+      <h3 className="text-[22px] font-bold text-[#1c1f33] mb-4 leading-snug group-hover:text-blue-600 transition-colors">
+        {post.title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-gray-500 leading-relaxed text-[15px] line-clamp-3 mb-2">
+        {post.excerpt}
+      </p>
+    </div>
+  </>
+);
 
 export default BlogSection;
 
