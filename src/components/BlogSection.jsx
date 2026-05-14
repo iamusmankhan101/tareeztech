@@ -101,7 +101,7 @@ const BlogSection = () => {
                   {/* Image */}
                   <div className="relative h-[130px] w-full overflow-hidden bg-gray-100">
                     <img 
-                      src={post.mainImage ? urlFor(post.mainImage).width(500).height(300).url() : '/tech.jpg'} 
+                      src={post.mainImage ? urlFor(post.mainImage).width(160).height(130).url() : '/tech.jpg'} 
                       alt={post.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
