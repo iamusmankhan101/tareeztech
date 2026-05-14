@@ -73,7 +73,7 @@ const BlogSection = () => {
 
         {/* Blog Cards Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1200px] mx-auto"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -97,30 +97,30 @@ const BlogSection = () => {
             >
               <Link to={`/blog/${post.slug}`} className="block">
                 {/* Card Container */}
-                <div className="bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 h-full flex flex-col">
+                <div className="bg-white rounded-[1.25rem] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 h-full flex flex-col">
                   {/* Image */}
-                  <div className="relative h-[240px] w-full overflow-hidden bg-gray-100">
+                  <div className="relative h-[130px] w-full overflow-hidden bg-gray-100">
                     <img 
-                      src={post.mainImage ? urlFor(post.mainImage).width(600).height(400).url() : '/tech.jpg'} 
+                      src={post.mainImage ? urlFor(post.mainImage).width(500).height(300).url() : '/tech.jpg'} 
                       alt={post.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 flex-1 flex flex-col">
+                  <div className="p-5 flex-1 flex flex-col">
                     {/* Date */}
-                    <p className="text-sm font-medium text-[#a0aec0] mb-3 tracking-wide uppercase">
+                    <p className="text-xs font-medium text-[#a0aec0] mb-2 tracking-wide uppercase">
                       {formatDate(post.publishedAt)}
                     </p>
 
                     {/* Title */}
-                    <h3 className="text-[1.5rem] font-bold text-[#2d3748] mb-3 leading-tight group-hover:text-[#4299e1] transition-colors line-clamp-2">
+                    <h3 className="text-[1.25rem] font-bold text-[#2d3748] mb-2 leading-tight group-hover:text-[#4299e1] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[#718096] leading-relaxed text-[0.95rem] line-clamp-3 flex-1">
+                    <p className="text-[#718096] leading-relaxed text-[0.875rem] line-clamp-3 flex-1">
                       {post.excerpt}
                     </p>
                   </div>
