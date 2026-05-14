@@ -7,6 +7,34 @@ const BlogSection = () => {
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Dummy posts to show when Sanity has no posts yet
+  const dummyPosts = [
+    {
+      _id: 'dummy-1',
+      title: 'Revolutionizing Team Collaboration: The CollabNex Way',
+      slug: { current: '#' },
+      publishedAt: '2022-04-08',
+      excerpt: 'Discover how CollabNex is changing the game in team collaboration, boosting productivity and sparking creativity.',
+      mainImage: null,
+    },
+    {
+      _id: 'dummy-2',
+      title: 'Unleashing Creativity: How CollabNex Inspires Innovation',
+      slug: { current: '#' },
+      publishedAt: '2022-03-15',
+      excerpt: 'Explore how CollabNex nurtures a culture of creativity, empowering teams to unleash their full innovative potential.',
+      mainImage: null,
+    },
+    {
+      _id: 'dummy-3',
+      title: 'Efficiency Redefined: The Power of CollabNex Task Management',
+      slug: { current: '#' },
+      publishedAt: '2022-02-28',
+      excerpt: 'Learn how CollabNex\'s task management features streamline workflows, increase efficiency, and keep projects on track.',
+      mainImage: null,
+    },
+  ];
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -18,9 +46,13 @@ const BlogSection = () => {
           excerpt,
           mainImage
         }`);
-        setRecentPosts(data);
+        
+        // Use dummy posts if no posts in Sanity
+        setRecentPosts(data.length > 0 ? data : dummyPosts);
       } catch (error) {
         console.error('Error fetching posts:', error);
+        // Use dummy posts on error
+        setRecentPosts(dummyPosts);
       } finally {
         setLoading(false);
       }
@@ -100,19 +132,14 @@ const BlogSection = () => {
                 <div className="bg-white rounded-[1rem] overflow-hidden shadow-[0_2px_15px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.12)] transition-all duration-300 h-full flex flex-col">
                   {/* Image */}
                   <div className="relative h-[130px] w-full overflow-hidden bg-gray-100">
-                    {post.mainImage ? (
-                      <img 
-                        src={urlFor(post.mainImage).width(400).height(260).url()} 
-                        alt={post.title}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#0d10d3]/10 to-[#00f2ff]/10 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                        <span className="text-[#0d10d3]/40 font-bold text-lg uppercase tracking-widest">
-                          Blog
-                        </span>
-                      </div>
-                    )}
+                    <img 
+                      src={post.mainImage ? urlFor(post.mainImage).width(400).height(260).url() : '/tech.jpg'} 
+                      alt={post.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.target.src = '/tech.jpg';
+                      }}
+                    />
                   </div>
 
                   {/* Content */}
