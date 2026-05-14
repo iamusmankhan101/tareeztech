@@ -52,7 +52,7 @@ const Navbar = () => {
             src="/logo.png"
             alt="Tareez Tech Logo"
             style={{
-              height: 44,
+              height: 64,
               width: 'auto',
               objectFit: 'contain',
               transition: 'opacity 0.2s',
