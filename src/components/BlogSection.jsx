@@ -156,7 +156,7 @@ const BlogSection = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-4 flex-1 flex flex-col">
+                  <div className="p-4 pt-6 flex-1 flex flex-col">
                     {/* Date */}
                     <p className="text-[0.7rem] font-medium text-gray-400 mb-2 tracking-wide uppercase">
                       {formatDate(post.publishedAt)}
