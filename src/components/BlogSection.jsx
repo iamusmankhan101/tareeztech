@@ -3,48 +3,30 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { client, urlFor } from '../lib/sanity';
 
-const DUMMY_POSTS = [
-  {
-    _id: 'dummy-1',
-    title: 'The Future of Web Development',
-    slug: '',
-    publishedAt: new Date().toISOString(),
-    excerpt: 'Explore the latest trends and technologies shaping the future of web development and digital experiences.',
-  },
-  {
-    _id: 'dummy-2',
-    title: 'Maximizing Your Digital Presence',
-    slug: '',
-    publishedAt: new Date().toISOString(),
-    excerpt: 'Learn strategies to enhance your brand visibility and connect with your target audience effectively.',
-  },
-  {
-    _id: 'dummy-3',
-    title: 'Understanding Modern SEO',
-    slug: '',
-    publishedAt: new Date().toISOString(),
-    excerpt: 'A comprehensive guide to optimizing your website for search engines in the modern digital landscape.',
-  }
-];
-
 const BlogSection = () => {
   const [recentPosts, setRecentPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...3]{
-      _id,
-      title,
-      "slug": slug.current,
-      publishedAt,
-      excerpt,
-      mainImage
-    }`).then((data) => {
-      const posts = [...data];
-      while (posts.length < 3) {
-        posts.push(DUMMY_POSTS[posts.length]);
+    const fetchPosts = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...3]{
+          _id,
+          title,
+          "slug": slug.current,
+          publishedAt,
+          excerpt,
+          mainImage
+        }`);
+        setRecentPosts(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setLoading(false);
       }
-      setRecentPosts(posts);
-    }).catch(console.error);
+    };
+
+    fetchPosts();
   }, []);
 
   const formatDate = (dateString) => {
@@ -53,19 +35,25 @@ const BlogSection = () => {
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  return (
-    <section className="relative py-24 bg-white overflow-hidden font-sans">
-      {/* Subtle Concentric Circles Background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] pointer-events-none flex items-center justify-center opacity-[0.04] -translate-y-1/2">
-        <div className="absolute w-[1200px] h-[1200px] rounded-full border border-black"></div>
-        <div className="absolute w-[1000px] h-[1000px] rounded-full border border-black"></div>
-        <div className="absolute w-[800px] h-[800px] rounded-full border border-black"></div>
-        <div className="absolute w-[600px] h-[600px] rounded-full border border-black"></div>
-        <div className="absolute w-[400px] h-[400px] rounded-full border border-black"></div>
-        <div className="absolute w-[200px] h-[200px] rounded-full border border-black"></div>
-      </div>
+  if (loading) {
+    return (
+      <section className="py-20 bg-[#f8f9fa]">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center">
+            <p className="text-gray-500">Loading blog posts...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-      <div className="container max-w-7xl mx-auto px-4 relative z-10">
+  if (recentPosts.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="py-20 bg-[#f8f9fa]">
+      <div className="container max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
@@ -74,17 +62,18 @@ const BlogSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-[#1c1f33] mb-6 tracking-tight">
+          <h2 className="text-[2.75rem] md:text-[3.25rem] font-bold text-[#2d3748] mb-4 tracking-tight">
             Blog Articles
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Stay informed and inspired with our blog, featuring insightful articles and updates on a variety of topics.
+          <p className="text-lg text-[#718096] max-w-2xl mx-auto leading-relaxed">
+            Stay informed and inspired with our blog, featuring insightful<br />
+            articles and updates on a variety of topics.
           </p>
         </motion.div>
 
-        {/* Blog Cards */}
+        {/* Blog Cards Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1200px] mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -100,59 +89,66 @@ const BlogSection = () => {
           {recentPosts.map((post) => (
             <motion.article
               key={post._id}
-              className="bg-white rounded-[2rem] p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+              className="group"
               variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
               }}
             >
-              {post.slug ? (
-                <Link to={`/blog/${post.slug}`} className="flex-1 flex flex-col group">
-                  <BlogCardContent post={post} formatDate={formatDate} />
-                </Link>
-              ) : (
-                <div className="flex-1 flex flex-col group cursor-default">
-                  <BlogCardContent post={post} formatDate={formatDate} />
+              <Link to={`/blog/${post.slug}`} className="block">
+                {/* Card Container */}
+                <div className="bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 h-full flex flex-col">
+                  {/* Image */}
+                  <div className="relative h-[240px] w-full overflow-hidden bg-gray-100">
+                    <img 
+                      src={post.mainImage ? urlFor(post.mainImage).width(600).height(400).url() : '/tech.jpg'} 
+                      alt={post.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    {/* Date */}
+                    <p className="text-sm font-medium text-[#a0aec0] mb-3 tracking-wide uppercase">
+                      {formatDate(post.publishedAt)}
+                    </p>
+
+                    {/* Title */}
+                    <h3 className="text-[1.5rem] font-bold text-[#2d3748] mb-3 leading-tight group-hover:text-[#4299e1] transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-[#718096] leading-relaxed text-[0.95rem] line-clamp-3 flex-1">
+                      {post.excerpt}
+                    </p>
+                  </div>
                 </div>
-              )}
+              </Link>
             </motion.article>
           ))}
+        </motion.div>
+
+        {/* View All Button */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <Link 
+            to="/blog"
+            className="inline-block px-8 py-3 bg-[#2d3748] text-white font-semibold rounded-full hover:bg-[#1a202c] transition-colors duration-300"
+          >
+            View All Articles
+          </Link>
         </motion.div>
       </div>
     </section>
   );
 };
-
-const BlogCardContent = ({ post, formatDate }) => (
-  <>
-    {/* Image */}
-    <div className="relative h-[220px] w-full rounded-[1.5rem] overflow-hidden mb-5 bg-gray-50">
-      <img 
-        src={post.mainImage ? urlFor(post.mainImage).url() : '/tech.jpg'} 
-        alt={post.title}
-        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-      />
-    </div>
-
-    {/* Content */}
-    <div className="px-1 flex-1 flex flex-col">
-      {/* Date */}
-      <p className="text-[13px] font-semibold text-gray-400 mb-3 tracking-wide">
-        {formatDate(post.publishedAt)}
-      </p>
-
-      {/* Title */}
-      <h3 className="text-[22px] font-bold text-[#1c1f33] mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">
-        {post.title}
-      </h3>
-
-      {/* Description */}
-      <p className="text-gray-500 leading-relaxed text-[15px] line-clamp-3">
-        {post.excerpt}
-      </p>
-    </div>
-  </>
-);
 
 export default BlogSection;
 
