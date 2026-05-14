@@ -25,15 +25,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-20">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #0d10d3 0.5px, transparent 0)',
-          backgroundSize: '48px 48px',
-        }}></div>
-      </div>
-
+    <div className="min-h-screen bg-white pt-32 pb-20">
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -186,33 +178,6 @@ const Blog = () => {
           </motion.div>
         )}
       </div>
-
-      {/* Animations */}
-      <style jsx>{`
-        @keyframes blob {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-          }
-          25% {
-            transform: translate(20px, -50px) scale(1.1);
-          }
-          50% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          75% {
-            transform: translate(50px, 50px) scale(1.05);
-          }
-        }
-        .animate-blob {
-          animation: blob 20s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </div>
   );
 };
