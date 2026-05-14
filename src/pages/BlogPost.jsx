@@ -1,18 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Link2 } from 'lucide-react';
-import { getPostBySlug, getRecentPosts } from '../data/blogPosts';
+import { PortableText } from '@portabletext/react';
+import { client, urlFor } from '../lib/sanity';
 
 const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const post = getPostBySlug(slug);
-  const recentPosts = getRecentPosts(3).filter(p => p.slug !== slug);
+  const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLoading(true);
+
+    client.fetch(`{
+      "post": *[_type == "post" && slug.current == $slug][0]{
+        _id,
+        title,
+        "author": author->name,
+        "categories": categories[]->title,
+        publishedAt,
+        body,
+        excerpt,
+        mainImage
+      },
+      "recentPosts": *[_type == "post" && slug.current != $slug] | order(publishedAt desc)[0...3]{
+        _id,
+        title,
+        "slug": slug.current,
+        "category": categories[0]->title,
+        publishedAt,
+        excerpt,
+        mainImage
+      }
+    }`, { slug }).then(data => {
+      setPost(data.post);
+      setRecentPosts(data.recentPosts || []);
+      setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
   }, [slug]);
+
+  if (loading) {
+    return <div className="min-h-screen bg-black pt-32 pb-20 flex items-center justify-center text-white text-xl">Loading...</div>;
+  }
 
   if (!post) {
     return (
@@ -36,14 +72,20 @@ const BlogPost = () => {
   }
 
   const formatDate = (dateString) => {
+    if (!dateString) return '';
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  const getReadTime = (content) => {
+  const getReadTime = (blocks) => {
+    if (!blocks || !Array.isArray(blocks)) return '1 min read';
+    const text = blocks
+      .filter(block => block._type === 'block' && block.children)
+      .map(block => block.children.map(child => child.text).join(''))
+      .join(' ');
     const wordsPerMinute = 200;
-    const wordCount = content.split(/\s+/).length;
-    const minutes = Math.ceil(wordCount / wordsPerMinute);
+    const wordCount = text.split(/\s+/).length;
+    const minutes = Math.ceil(wordCount / wordsPerMinute) || 1;
     return `${minutes} min read`;
   };
 
@@ -79,6 +121,13 @@ const BlogPost = () => {
       <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
         {/* Animated Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0d10d3] via-[#0d10d3] to-[#00f2ff]">
+          {post.mainImage && (
+            <img 
+              src={urlFor(post.mainImage).url()} 
+              alt={post.title}
+              className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50"
+            />
+          )}
           {/* Animated Pattern Overlay */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute inset-0" style={{
@@ -118,7 +167,7 @@ const BlogPost = () => {
               className="mb-6"
             >
               <span className="inline-block px-5 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-bold rounded-full border border-white/20">
-                {post.category}
+                {post.categories?.[0] || 'Blog'}
               </span>
             </motion.div>
 
@@ -145,11 +194,11 @@ const BlogPost = () => {
               </span>
               <span className="flex items-center gap-2">
                 <Calendar size={18} />
-                {formatDate(post.date)}
+                {formatDate(post.publishedAt)}
               </span>
               <span className="flex items-center gap-2">
                 <Clock size={18} />
-                {getReadTime(post.content)}
+                {getReadTime(post.body)}
               </span>
             </motion.div>
           </div>
@@ -227,23 +276,22 @@ const BlogPost = () => {
           </div>
 
           {/* Content */}
-          <div
-            className="prose prose-lg prose-invert max-w-none mb-12"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className="prose prose-lg prose-invert max-w-none mb-12">
+            {post.body ? <PortableText value={post.body} /> : <p>No content available.</p>}
+          </div>
 
           {/* Tags */}
           <div className="flex flex-wrap items-center gap-3 mb-12 pb-12 border-b border-gray-800">
             <span className="flex items-center gap-2 text-gray-400 font-semibold mr-2">
               <Tag size={18} className="text-[#00f2ff]" />
-              Tags:
+              Categories:
             </span>
-            {post.tags.map((tag, index) => (
+            {(post.categories || []).map((cat, index) => (
               <span
                 key={index}
                 className="px-4 py-2 bg-gray-900 text-gray-300 rounded-full text-sm font-medium border border-gray-800 hover:border-[#0d10d3]/50 hover:text-white transition-all cursor-pointer"
               >
-                #{tag}
+                {cat}
               </span>
             ))}
           </div>
@@ -251,11 +299,11 @@ const BlogPost = () => {
           {/* Author Card */}
           <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 mb-12">
             <div className="flex items-start gap-6">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                {post.author.charAt(0)}
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 uppercase">
+                {post.author ? post.author.charAt(0) : 'T'}
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-2">Written by {post.author}</h3>
+                <h3 className="text-xl font-bold text-white mb-2">Written by {post.author || 'Tareez Tech Team'}</h3>
                 <p className="text-gray-400 mb-4">
                   Expert team at Tareez Tech specializing in digital marketing and web development. 
                   Helping businesses grow through innovative digital solutions.
@@ -311,13 +359,21 @@ const BlogPost = () => {
                   className="group"
                 >
                   <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100">
-                    <div className="h-40 bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center">
-                      <span className="text-white text-xl font-bold opacity-20">
-                        {recentPost.category}
-                      </span>
+                    <div className="h-40 bg-gradient-to-br from-[#0d10d3] to-[#00f2ff] flex items-center justify-center relative overflow-hidden">
+                      {recentPost.mainImage ? (
+                        <img 
+                          src={urlFor(recentPost.mainImage).url()} 
+                          alt={recentPost.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-white text-xl font-bold opacity-20 relative z-10">
+                          {recentPost.category || 'Blog'}
+                        </span>
+                      )}
                     </div>
                     <div className="p-4">
-                      <span className="text-xs text-gray-500">{formatDate(recentPost.date)}</span>
+                      <span className="text-xs text-gray-500">{formatDate(recentPost.publishedAt)}</span>
                       <h3 className="text-lg font-bold text-black mt-2 mb-2 group-hover:text-[#0d10d3] transition-colors line-clamp-2">
                         {recentPost.title}
                       </h3>

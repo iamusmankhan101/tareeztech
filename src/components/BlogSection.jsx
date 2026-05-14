@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { getRecentPosts } from '../data/blogPosts';
+import { client, urlFor } from '../lib/sanity';
 
 const BlogSection = () => {
-  const recentPosts = getRecentPosts(3);
+  const [recentPosts, setRecentPosts] = useState([]);
+
+  useEffect(() => {
+    client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...3]{
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      excerpt,
+      mainImage
+    }`).then((data) => setRecentPosts(data)).catch(console.error);
+  }, []);
 
   const formatDate = (dateString) => {
+    if (!dateString) return '';
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
@@ -57,7 +69,7 @@ const BlogSection = () => {
         >
           {recentPosts.map((post) => (
             <motion.article
-              key={post.id}
+              key={post._id}
               className="bg-white rounded-3xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col"
               variants={{
                 hidden: { opacity: 0, y: 50 },
@@ -68,7 +80,7 @@ const BlogSection = () => {
                 {/* Image */}
                 <div className="relative h-[240px] w-full rounded-2xl overflow-hidden mb-6">
                   <img 
-                    src={post.image || '/tech.jpg'} 
+                    src={post.mainImage ? urlFor(post.mainImage).url() : '/tech.jpg'} 
                     alt={post.title}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   />
@@ -78,7 +90,7 @@ const BlogSection = () => {
                 <div className="px-2 flex-1 flex flex-col">
                   {/* Date */}
                   <p className="text-[13px] font-medium text-gray-400 mb-3">
-                    {formatDate(post.date)}
+                    {formatDate(post.publishedAt)}
                   </p>
 
                   {/* Title */}

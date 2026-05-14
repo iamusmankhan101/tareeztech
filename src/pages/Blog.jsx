@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, User, Tag, ArrowRight, Clock, TrendingUp, Search } from 'lucide-react';
-import { blogPosts, getCategories } from '../data/blogPosts';
+import { client, urlFor } from '../lib/sanity';
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const categories = ['All', ...getCategories()];
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [categories, setCategories] = useState(['All']);
+
+  useEffect(() => {
+    client.fetch(`{
+      "posts": *[_type == "post"] | order(publishedAt desc){
+        _id,
+        title,
+        "slug": slug.current,
+        "category": categories[0]->title,
+        publishedAt,
+        excerpt,
+        mainImage
+      },
+      "cats": *[_type == "category"].title
+    }`).then((data) => {
+      setBlogPosts(data.posts);
+      setCategories(['All', ...(data.cats || [])]);
+    }).catch(console.error);
+  }, []);
 
   const filteredPosts = selectedCategory === 'All' 
     ? blogPosts 
     : blogPosts.filter(post => post.category === selectedCategory);
 
   const formatDate = (dateString) => {
+    if (!dateString) return '';
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
@@ -91,7 +111,7 @@ const Blog = () => {
         >
           {filteredPosts.map((post, index) => (
             <motion.article
-              key={post.id}
+              key={post._id}
               className="group relative bg-white overflow-hidden shadow-md hover:shadow-xl transition-all duration-500"
               variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -101,17 +121,21 @@ const Blog = () => {
             >
               {/* Image */}
               <Link to={`/blog/${post.slug}`}>
-                <div className="relative h-72 overflow-hidden">
-                  {/* Placeholder Image with Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#0d10d3] via-purple-500 to-[#00f2ff]">
-                    {/* Pattern Overlay */}
+                <div className="relative h-72 overflow-hidden bg-gradient-to-br from-[#0d10d3] via-purple-500 to-[#00f2ff]">
+                  {post.mainImage ? (
+                    <img 
+                      src={urlFor(post.mainImage).url()} 
+                      alt={post.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
                     <div className="absolute inset-0 opacity-20">
                       <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
                         backgroundSize: '32px 32px',
                       }}></div>
                     </div>
-                  </div>
+                  )}
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
@@ -131,7 +155,7 @@ const Blog = () => {
               <div className="p-8">
                 {/* Date Label */}
                 <div className="text-sm font-semibold text-gray-600 mb-6 uppercase tracking-wider">
-                  BLOGS - {formatDate(post.date).toUpperCase()}
+                  BLOGS - {formatDate(post.publishedAt).toUpperCase()}
                 </div>
 
                 {/* Title */}
