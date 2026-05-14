@@ -212,69 +212,6 @@ const BlogPost = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          {/* Floating Share Sidebar */}
-          <div className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 z-50">
-            <div className="flex flex-col gap-3 bg-white border border-gray-200 rounded-2xl p-3 shadow-xl">
-              <button
-                onClick={() => handleShare('facebook')}
-                className="p-3 rounded-xl bg-gray-100 hover:bg-[#1877f2] text-gray-600 hover:text-white transition-all group"
-                title="Share on Facebook"
-              >
-                <Share2 size={20} />
-              </button>
-              <button
-                onClick={() => handleShare('twitter')}
-                className="p-3 rounded-xl bg-gray-100 hover:bg-[#1da1f2] text-gray-600 hover:text-white transition-all"
-                title="Share on Twitter"
-              >
-                <Share2 size={20} />
-              </button>
-              <button
-                onClick={() => handleShare('linkedin')}
-                className="p-3 rounded-xl bg-gray-100 hover:bg-[#0077b5] text-gray-600 hover:text-white transition-all"
-                title="Share on LinkedIn"
-              >
-                <Share2 size={20} />
-              </button>
-              <button
-                onClick={() => handleShare('copy')}
-                className="p-3 rounded-xl bg-gray-100 hover:bg-[#0d10d3] text-gray-600 hover:text-white transition-all"
-                title="Copy Link"
-              >
-                <Link2 size={20} />
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Share Buttons */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-12 pb-8 border-b border-gray-200">
-            <span className="text-gray-600 text-sm font-semibold mr-2">Share:</span>
-            <button
-              onClick={() => handleShare('facebook')}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-[#1877f2] text-gray-600 hover:text-white transition-all"
-            >
-              <Share2 size={18} />
-            </button>
-            <button
-              onClick={() => handleShare('twitter')}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-[#1da1f2] text-gray-600 hover:text-white transition-all"
-            >
-              <Share2 size={18} />
-            </button>
-            <button
-              onClick={() => handleShare('linkedin')}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-[#0077b5] text-gray-600 hover:text-white transition-all"
-            >
-              <Share2 size={18} />
-            </button>
-            <button
-              onClick={() => handleShare('copy')}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-[#0d10d3] text-gray-600 hover:text-white transition-all"
-            >
-              <Link2 size={18} />
-            </button>
-          </div>
-
           {/* Content */}
           <div className="prose prose-lg max-w-none mb-12">
             {post.body ? <PortableText value={post.body} /> : <p>No content available.</p>}
@@ -308,12 +245,6 @@ const BlogPost = () => {
                   Expert team at Tareez Tech specializing in digital marketing and web development. 
                   Helping businesses grow through innovative digital solutions.
                 </p>
-                <Link
-                  to="/#contact"
-                  className="inline-flex items-center gap-2 text-[#00f2ff] hover:text-[#0d10d3] font-semibold text-sm transition-colors"
-                >
-                  Get in touch <ArrowLeft size={16} className="rotate-180" />
-                </Link>
               </div>
             </div>
           </div>
@@ -337,7 +268,7 @@ const BlogPost = () => {
                 to="/#contact"
                 className="inline-block px-10 py-4 bg-white text-[#0d10d3] rounded-full font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
               >
-                Get Started Today
+                Contact Us
               </Link>
             </div>
           </div>
