@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Facebook, Twitter, Linkedin, Link2 } from 'lucide-react';
+import { Calendar, User, Tag, ArrowLeft, Share2, Clock, Eye, Bookmark, Facebook, Twitter, Link2 } from 'lucide-react';
 import { getPostBySlug, getRecentPosts } from '../data/blogPosts';
 
 const BlogPost = () => {
@@ -185,7 +185,7 @@ const BlogPost = () => {
                 className="p-3 rounded-xl bg-gray-800 hover:bg-[#0077b5] text-gray-400 hover:text-white transition-all"
                 title="Share on LinkedIn"
               >
-                <Linkedin size={20} />
+                <Share2 size={20} />
               </button>
               <button
                 onClick={() => handleShare('copy')}
@@ -216,7 +216,7 @@ const BlogPost = () => {
               onClick={() => handleShare('linkedin')}
               className="p-2 rounded-lg bg-gray-900 hover:bg-[#0077b5] text-gray-400 hover:text-white transition-all"
             >
-              <Linkedin size={18} />
+              <Share2 size={18} />
             </button>
             <button
               onClick={() => handleShare('copy')}
