@@ -10,8 +10,9 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import './App.css';
 
-const ScrollToHash = () => {
-  const { hash } = useLocation();
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+  
   useEffect(() => {
     if (hash) {
       setTimeout(() => {
@@ -21,9 +22,14 @@ const ScrollToHash = () => {
         }
       }, 100);
     } else {
-      window.scrollTo(0, 0);
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
-  }, [hash]);
+  }, [pathname, hash]);
+
   return null;
 };
 
@@ -49,14 +55,18 @@ function AppContent() {
 
     requestAnimationFrame(raf);
 
+    // Make lenis available globally for manual scrolling if needed
+    window.lenis = lenis;
+
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 
   return (
     <div className="app-container overflow-hidden">
-      <ScrollToHash />
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
