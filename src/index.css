@@ -2538,3 +2538,57 @@ a.footer-contact-item:hover {
   position: relative;
   z-index: 1;
 }
+
+/* ============================
+   FAQ SECTION
+   ============================ */
+
+.faq-section {
+  padding: 8rem 0;
+  background: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(13, 16, 211, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.faq-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--border-color);
+}
+
+.faq-item:hover {
+  border-color: rgba(0, 242, 255, 0.3);
+}
+
+.faq-item.active {
+  border-color: rgba(0, 242, 255, 0.5);
+}
+
+.faq-question:hover .faq-icon {
+  transform: scale(1.1);
+}
+
+.faq-item.active .faq-question:hover .faq-icon {
+  transform: scale(1.1) rotate(180deg);
+}
