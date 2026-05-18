@@ -3,24 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const faqs = [
   {
-    question: "What services does Tareez Tech provide?",
-    answer: "We offer a comprehensive suite of digital services including custom Web Development, WordPress solutions, E-commerce development, Search Engine Optimization (SEO), and full-scale Digital Marketing strategies tailored to boost your ROI."
+    question: "What does Tareez Tech, a digital marketing agency in Lahore, do?",
+    answer: "Tareez Tech is a digital marketing agency in Lahore that helps businesses grow online through SEO, social media marketing, Meta ads, Google Ads, content creation, branding, graphic design, video editing, and website development. Our goal is to help businesses increase leads, sales, and online visibility."
   },
   {
-    question: "How long does it take to build a custom website?",
-    answer: "The timeline depends on the complexity and scope of the project. A standard business website typically takes 2-4 weeks, while complex e-commerce or custom web applications may take 6-12 weeks from design to deployment."
+    question: "What services does Tareez Tech offer as a web development company in Lahore?",
+    answer: "As a web development company in Lahore, Tareez Tech offers custom web development, WordPress web development services, ecommerce solutions, web app development services, UI/UX design, and business websites designed for performance and conversions."
   },
   {
-    question: "Do you offer ongoing website maintenance and support?",
-    answer: "Yes, we provide continuous maintenance, security updates, and technical support packages to ensure your website remains fast, secure, and fully operational long after launch."
+    question: "Why should I choose custom web development services from Tareez Tech?",
+    answer: "Custom web development services from Tareez Tech are designed specifically for your business needs. Unlike template-based websites, custom web development provides better flexibility, improved SEO performance, faster loading speed, and a unique brand experience."
   },
   {
-    question: "Do you work with international clients outside of Pakistan?",
-    answer: "Absolutely. While we are a premier web development company in Lahore, we partner with brands and businesses globally, delivering world-class digital solutions across various time zones."
+    question: "Does Tareez Tech offer both web and app development services?",
+    answer: "Yes. Tareez Tech provides web and app development services, including custom websites, ecommerce platforms, and web app development services. Businesses searching for web development in Lahore can get complete digital solutions under one roof."
   },
   {
-    question: "Will my website be mobile-friendly and optimized for SEO?",
-    answer: "Yes, every website we build is fully responsive, ensuring a seamless experience across all devices. We also implement on-page SEO best practices from the ground up to help you rank higher on search engines."
+    question: "Does Tareez Tech provide graphic design and video editing services?",
+    answer: "Yes, Tareez Tech provides graphic design, video editing, branding, digital marketing poster design, website design, and content creation services to help businesses establish a strong and professional online presence."
   }
 ];
 
