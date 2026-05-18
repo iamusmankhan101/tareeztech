@@ -15,11 +15,12 @@ const AboutSummary = () => {
   ];
 
   return (
-    <section id="about" className="py-40 bg-white">
+    <section id="about" className="about-summary-section">
       <div className="container max-w-5xl">
         <div className="text-center">
           <motion.p
-            className="about-heading text-2xl md:text-6xl lg:text-7xl font-normal leading-1-4 tracking-tighter text-black max-w-5xl mx-auto"
+            className="about-heading text-2xl md:text-6xl lg:text-7xl font-normal leading-1-4 tracking-tighter max-w-5xl mx-auto"
+            style={{ color: '#fff' }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
@@ -47,7 +48,7 @@ const AboutSummary = () => {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
               }}
             >
-              <span className="w-3 h-3 bg-black rounded-full mx-4 hidden md:inline-block"></span>
+              <span className="w-3 h-3 rounded-full mx-4 hidden md:inline-block" style={{ background: 'linear-gradient(135deg, #0d10d3, #00f2ff)' }}></span>
               <span className="text-[#94a3b8]">Dive into our world and discover the magic of</span>{' '}
               <span className="ml-2">collaboration and creativity.</span>
             </motion.span>
@@ -67,15 +68,15 @@ const AboutSummary = () => {
               display: 'inline-block',
               padding: '1rem 2.5rem',
               borderRadius: '99px',
-              border: '2px solid #0d10d3',
-              color: '#0d10d3',
+              border: '2px solid rgba(0, 242, 255, 0.4)',
+              color: '#00f2ff',
               fontSize: '0.875rem',
               fontWeight: '600',
               textDecoration: 'none',
-              transition: 'background 0.3s, color 0.3s',
+              transition: 'background 0.3s, color 0.3s, border-color 0.3s',
             }}
-            onMouseEnter={e => { e.target.style.background = '#0d10d3'; e.target.style.color = '#fff'; }}
-            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0d10d3'; }}
+            onMouseEnter={e => { e.target.style.background = 'linear-gradient(135deg, #0d10d3, #00f2ff)'; e.target.style.color = '#fff'; e.target.style.borderColor = 'transparent'; }}
+            onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#00f2ff'; e.target.style.borderColor = 'rgba(0, 242, 255, 0.4)'; }}
           >
             Discover more about us
           </a>
