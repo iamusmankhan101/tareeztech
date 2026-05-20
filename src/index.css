@@ -2636,3 +2636,27 @@ a.footer-contact-item:hover {
   line-height: 1.6;
   font-size: 1.125rem;
 }
+
+/* ============================
+   BLOG HOME GRID
+   ============================ */
+.blog-home-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .blog-home-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .blog-home-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

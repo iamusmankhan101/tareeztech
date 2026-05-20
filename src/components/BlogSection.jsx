@@ -10,7 +10,7 @@ const BlogSection = () => {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "post"] | order(publishedAt desc)[0...3]{
+        `*[_type == "post"] | order(publishedAt desc)[0...6]{
           _id,
           title,
           "slug": slug.current,
@@ -84,13 +84,7 @@ const BlogSection = () => {
 
         {/* Cards Grid */}
         <motion.div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 28,
-            maxWidth: 960,
-            margin: '0 auto',
-          }}
+          className="blog-home-grid"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
