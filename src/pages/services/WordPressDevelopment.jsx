@@ -46,15 +46,15 @@ const relatedServices = [
 const WordPressDevelopment = () => (
   <>
     <SEOHead
-      title="WordPress Web Development Services in Lahore | Custom WordPress Pakistan"
-      description="Tareez Tech offers expert WordPress web development services in Pakistan. Custom themes, WooCommerce, plugins, speed optimisation, and security — everything your WordPress site needs."
+      title="WordPress Development Services Lahore"
+      description="Expert WordPress development in Lahore by Tareez Tech. Custom themes, WooCommerce, plugin dev & security for Pakistan businesses. No templates — everything built from scratch."
       canonicalUrl="https://tareeztech.com/services/wordpress-development"
     />
 
     <ServicePageHero
-      tagline="WordPress Web Development Services"
-      title="Professional WordPress Websites"
-      titleHighlight="Built for Performance & Growth"
+      tagline="Custom WordPress Web Development Pakistan"
+      title="WordPress Web Development Services"
+      titleHighlight="in Lahore & Pakistan"
       description="Tareez Tech delivers custom WordPress web development services in Pakistan — bespoke themes, WooCommerce stores, plugin development, and ongoing maintenance for businesses in Lahore and beyond."
       breadcrumbs={[
         { label: 'Home', href: '/' },

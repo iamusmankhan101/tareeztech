@@ -46,15 +46,15 @@ const relatedServices = [
 const WebDesignPakistan = () => (
   <>
     <SEOHead
-      title="Website Design Company in Pakistan | Affordable Web Design Services | Web Designer Lahore"
-      description="Tareez Tech is a leading website design company in Pakistan. We offer affordable web design services in Lahore and across Pakistan — mobile-first, SEO-ready, and conversion-focused designs."
+      title="Website Design Company Pakistan"
+      description="Affordable website design in Pakistan by Tareez Tech. Mobile-first, SEO-ready designs for businesses in Lahore, Karachi & Islamabad. Get a free design quote today."
       canonicalUrl="https://tareeztech.com/services/web-design-pakistan"
     />
 
     <ServicePageHero
-      tagline="Website Design Company Pakistan"
-      title="Professional Web Design That"
-      titleHighlight="Converts Visitors to Customers"
+      tagline="Affordable Web Design Services Pakistan"
+      title="Website Design Company in Pakistan"
+      titleHighlight="That Converts"
       description="Tareez Tech is a trusted web design company in Pakistan delivering beautiful, mobile-first, conversion-focused website designs for businesses in Lahore, Karachi, Islamabad, and across Pakistan — at affordable rates."
       breadcrumbs={[
         { label: 'Home', href: '/' },

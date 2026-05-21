@@ -46,15 +46,15 @@ const relatedServices = [
 const SeoServicesLahore = () => (
   <>
     <SEOHead
-      title="SEO Services Lahore | Best SEO Company in Lahore | SEO Expert Pakistan"
-      description="Tareez Tech is the best SEO company in Lahore. Our SEO experts deliver proven on-page, off-page, and local SEO services that rank your business on page 1 of Google."
+      title="SEO Services Lahore | Best SEO Company"
+      description="Rank on page 1 with Tareez Tech's SEO services in Lahore. Expert on-page, off-page & local SEO by Pakistan's top SEO company. Free audit available."
       canonicalUrl="https://tareeztech.com/services/seo-services-lahore"
     />
 
     <ServicePageHero
-      tagline="SEO Services Lahore"
-      title="Rank on Page 1 with"
-      titleHighlight="Pakistan's SEO Experts"
+      tagline="Best SEO Company in Lahore, Pakistan"
+      title="SEO Services in Lahore"
+      titleHighlight="That Get You to Page 1"
       description="Tareez Tech is one of the best SEO companies in Lahore. Our dedicated SEO experts in Pakistan use proven technical, on-page, and off-page strategies to drive sustainable organic growth for your business."
       breadcrumbs={[
         { label: 'Home', href: '/' },

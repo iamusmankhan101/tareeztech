@@ -46,15 +46,15 @@ const relatedServices = [
 const WebAppDevelopment = () => (
   <>
     <SEOHead
-      title="Web App Development Services in Lahore | Web and App Development Pakistan"
-      description="Tareez Tech delivers expert web app development services in Pakistan. From SaaS platforms to business portals, we build custom web applications that scale with your business."
+      title="Web App Development Services Lahore"
+      description="Custom web app development services in Pakistan by Tareez Tech. SaaS platforms, business portals & web apps — built scalable, secure and tailored to your exact requirements."
       canonicalUrl="https://tareeztech.com/services/web-app-development"
     />
 
     <ServicePageHero
-      tagline="Web & App Development Services"
-      title="Custom Web Applications"
-      titleHighlight="Built to Scale Your Business"
+      tagline="Web & App Development Services Pakistan"
+      title="Web App Development Services"
+      titleHighlight="in Pakistan"
       description="From simple business portals to complex SaaS platforms, Tareez Tech delivers web and app development services in Pakistan that are fast, secure, and built around your exact business requirements."
       breadcrumbs={[
         { label: 'Home', href: '/' },

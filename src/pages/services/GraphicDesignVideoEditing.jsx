@@ -46,15 +46,15 @@ const relatedServices = [
 const GraphicDesignVideoEditing = () => (
   <>
     <SEOHead
-      title="Graphic Design & Video Editing Services in Lahore | Creative Agency Pakistan"
-      description="Tareez Tech offers professional graphic design and video editing services in Lahore, Pakistan. Social media graphics, digital marketing posters, brand identity, reels, and more."
+      title="Graphic Design & Video Editing Lahore"
+      description="Professional graphic design & video editing in Lahore. Tareez Tech creates social media graphics, digital marketing posters, brand identity & reels for businesses in Pakistan."
       canonicalUrl="https://tareeztech.com/services/graphic-design-video-editing"
     />
 
     <ServicePageHero
-      tagline="Graphic Design & Video Editing"
-      title="Creative That Makes Your"
-      titleHighlight="Brand Impossible to Ignore"
+      tagline="Creative Agency in Lahore, Pakistan"
+      title="Graphic Design & Video Editing"
+      titleHighlight="Services in Lahore"
       description="Tareez Tech's creative team delivers professional graphic design and video editing services in Lahore — from brand identity and digital marketing posters to social media reels and corporate videos."
       breadcrumbs={[
         { label: 'Home', href: '/' },

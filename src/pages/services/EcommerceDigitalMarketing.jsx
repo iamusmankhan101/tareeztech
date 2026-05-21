@@ -46,15 +46,15 @@ const relatedServices = [
 const EcommerceDigitalMarketing = () => (
   <>
     <SEOHead
-      title="Ecommerce & Digital Marketing Services Pakistan | Online Store Growth Lahore"
-      description="Grow your online store with Tareez Tech's ecommerce and digital marketing services in Pakistan. WooCommerce development, SEO, Google Shopping, social commerce, and conversion optimisation."
+      title="Ecommerce & Digital Marketing Pakistan"
+      description="Grow your online store with Tareez Tech's ecommerce & digital marketing in Pakistan. WooCommerce, Google Shopping, SEO & social ads — integrated for maximum online revenue."
       canonicalUrl="https://tareeztech.com/services/ecommerce-digital-marketing"
     />
 
     <ServicePageHero
-      tagline="Ecommerce & Digital Marketing"
-      title="Grow Your Online Store with"
-      titleHighlight="Integrated Ecommerce Marketing"
+      tagline="Ecommerce Marketing Experts in Pakistan"
+      title="Ecommerce & Digital Marketing"
+      titleHighlight="Services in Pakistan"
       description="Tareez Tech combines ecommerce development and digital marketing to help Pakistani online stores attract more buyers, convert more orders, and build lasting customer loyalty — all through one integrated strategy."
       breadcrumbs={[
         { label: 'Home', href: '/' },

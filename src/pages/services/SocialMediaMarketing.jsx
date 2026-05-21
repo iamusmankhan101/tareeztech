@@ -46,15 +46,15 @@ const relatedServices = [
 const SocialMediaMarketing = () => (
   <>
     <SEOHead
-      title="Social Media Marketing Agency in Pakistan | Social Media Agency Lahore"
-      description="Tareez Tech is a leading social media marketing agency in Pakistan. We manage Facebook, Instagram, LinkedIn & TikTok to grow your brand, engage your audience, and drive real business results."
+      title="Social Media Marketing Agency Pakistan"
+      description="Pakistan's leading social media marketing agency. Tareez Tech manages Facebook, Instagram & TikTok to grow your brand, drive real engagement and turn followers into customers."
       canonicalUrl="https://tareeztech.com/services/social-media-marketing-pakistan"
     />
 
     <ServicePageHero
-      tagline="Social Media Marketing Agency Pakistan"
-      title="Build Your Brand &"
-      titleHighlight="Grow Your Community"
+      tagline="Social Media Agency in Pakistan"
+      title="Social Media Marketing Agency"
+      titleHighlight="in Pakistan"
       description="Tareez Tech is a results-driven social media agency in Pakistan. We create compelling content, manage your communities, and run targeted paid campaigns to turn followers into loyal customers."
       breadcrumbs={[
         { label: 'Home', href: '/' },

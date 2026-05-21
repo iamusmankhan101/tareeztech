@@ -47,15 +47,15 @@ const relatedServices = [
 const DigitalMarketingLahore = () => (
   <>
     <SEOHead
-      title="Digital Marketing Agency in Lahore | Top Digital Marketing Services Pakistan"
-      description="Tareez Tech is a top digital marketing agency in Lahore offering full digital marketing services: SEO, social media marketing, PPC, and content strategy. Get results that grow your business."
+      title="Digital Marketing Agency in Lahore"
+      description="Lahore's top digital marketing agency. Tareez Tech offers SEO, PPC, social media & content marketing that drive real leads and measurable ROI for businesses across Pakistan."
       canonicalUrl="https://tareeztech.com/services/digital-marketing-lahore"
     />
 
     <ServicePageHero
-      tagline="Digital Marketing Agency in Lahore"
-      title="Grow Your Business with"
-      titleHighlight="Results-Driven Digital Marketing"
+      tagline="Top Digital Marketing Services Pakistan"
+      title="Digital Marketing Agency in Lahore"
+      titleHighlight="That Delivers Real ROI"
       description="As one of the top digital marketing agencies in Lahore, Tareez Tech delivers SEO, social media marketing, PPC, and content strategies that generate real leads and measurable ROI for businesses across Pakistan."
       breadcrumbs={[
         { label: 'Home', href: '/' },

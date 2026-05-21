@@ -47,15 +47,15 @@ const relatedServices = [
 const WebDevelopmentLahore = () => (
   <>
     <SEOHead
-      title="Web Development Company in Lahore | Best Web Development Services Pakistan"
-      description="Tareez Tech is the best web development company in Lahore. We offer custom web development, web app development, WordPress, and ecommerce solutions across Pakistan. Fast, SEO-ready, conversion-focused."
+      title="Web Development Company in Lahore"
+      description="Best web development company in Lahore. Tareez Tech builds custom websites, ecommerce stores & web apps — fast, SEO-ready and conversion-focused for businesses across Pakistan."
       canonicalUrl="https://tareeztech.com/services/web-development-lahore"
     />
 
     <ServicePageHero
-      tagline="Web Development Company in Lahore"
-      title="Build Your Digital Presence with"
-      titleHighlight="Expert Web Developers"
+      tagline="Best Web Development Services Pakistan"
+      title="Web Development Company in Lahore"
+      titleHighlight="Built to Convert"
       description="Tareez Tech is the best web development company in Lahore, delivering custom web development services, web app development, and ecommerce solutions that are fast, SEO-ready, and built to convert visitors into customers."
       breadcrumbs={[
         { label: 'Home', href: '/' },
