@@ -142,6 +142,10 @@ const DigitalMarketingLahore = () => (
     {/* Content Block */}
     <section className="sp-section-alt">
       <div className="sp-container">
+        <motion.div className="sp-section-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="sp-section-label">In Depth</span>
+          <h2 className="sp-section-title">Digital Marketing in Pakistan — What You Need to Know</h2>
+        </motion.div>
         <div className="sp-content-block">
           <h3>What Is a Digital Marketing Agency?</h3>
           <p>A digital marketing agency is a team of specialists that helps businesses grow their online presence, attract more customers, and increase revenue through digital channels. Unlike traditional advertising agencies, digital marketing agencies focus on measurable, data-driven strategies across search engines, social media, email, and paid advertising.</p>

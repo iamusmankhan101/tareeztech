@@ -134,6 +134,25 @@ const GraphicDesignVideoEditing = () => (
       </div>
     </section>
 
+    <section className="sp-section-alt">
+      <div className="sp-container">
+        <motion.div className="sp-section-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="sp-section-label">In Depth</span>
+          <h2 className="sp-section-title">Graphic Design & Video Editing in Pakistan — Key Considerations</h2>
+        </motion.div>
+        <div className="sp-content-block">
+          <h3>Professional Graphic Design Services for Digital Marketing in Pakistan</h3>
+          <p>In Pakistan's increasingly crowded digital marketplace, professional graphic design is no longer optional — it is a competitive necessity. Brands with consistent, high-quality visual identities generate significantly higher engagement rates and stronger customer trust than those with inconsistent amateur visuals. Our graphic design services in Lahore ensure every customer touchpoint communicates the same level of professionalism — from social media posts and digital marketing posters to email newsletters and printed materials.</p>
+          <h3>Video Editing for Social Media — What Performs in Pakistan</h3>
+          <p>Short-form video content dominates Pakistani social media feeds. Instagram Reels, TikTok videos, and YouTube Shorts consistently outperform static image posts by 2–3x in organic reach. The key elements of high-performing video in Pakistan: a compelling hook in the first 2 seconds, on-screen subtitles (most viewers watch without sound), culturally relevant visuals, and a clear call to action in the final frame. Our Lahore-based video editing team understands these platform-specific requirements and builds them into every video we produce.</p>
+          <h3>Brand Identity Design — More Than Just a Logo</h3>
+          <p>A brand identity is the complete visual language of your business — logo, colour palette, typography, icon style, imagery direction, and usage guidelines across all media. A professionally designed brand identity ensures consistency across your website, social channels, packaging, signage, and printed collateral. When every touchpoint looks consistent and professional, customers trust you more — and trust is the foundation of every conversion. We deliver complete brand identity packages including all editable source files, so you own every asset permanently.</p>
+          <h3>Digital Marketing Poster Design — Stopping the Scroll</h3>
+          <p>A social media post or digital marketing poster has under two seconds to capture attention in a moving feed. Effective poster design is not about decoration — it is about visual hierarchy: what the eye sees first, second, and third. Strong contrast, minimal text, one clear message, and a brand-consistent visual style are the hallmarks of high-performing digital content. Pair great design with a <a href="/services/social-media-marketing-pakistan">social media marketing strategy in Pakistan</a> and your content becomes a lead generation engine rather than just wall decoration.</p>
+        </div>
+      </div>
+    </section>
+
     <ServiceFAQ faqs={faqs} title="Graphic Design & Video Editing — FAQs" />
 
     <RelatedServices title="Complete Your Digital Presence" services={relatedServices} />

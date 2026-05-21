@@ -137,6 +137,10 @@ const WebDevelopmentLahore = () => (
 
     <section className="sp-section-alt">
       <div className="sp-container">
+        <motion.div className="sp-section-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="sp-section-label">In Depth</span>
+          <h2 className="sp-section-title">Web Development in Lahore — What You Need to Know</h2>
+        </motion.div>
         <div className="sp-content-block">
           <h3>Web Development in Lahore — Why Local Expertise Matters</h3>
           <p>Pakistani businesses have unique needs: Urdu language support, local payment gateways (JazzCash, EasyPaisa, HBL Pay), and an understanding of the local competitive landscape. Our web developers in Lahore bring this local knowledge to every project alongside international technical standards.</p>

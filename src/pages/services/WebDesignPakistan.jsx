@@ -134,6 +134,25 @@ const WebDesignPakistan = () => (
       </div>
     </section>
 
+    <section className="sp-section-alt">
+      <div className="sp-container">
+        <motion.div className="sp-section-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="sp-section-label">In Depth</span>
+          <h2 className="sp-section-title">Website Design in Pakistan — What You Should Know</h2>
+        </motion.div>
+        <div className="sp-content-block">
+          <h3>What Makes a Website Design Effective in Pakistan?</h3>
+          <p>An effective website design in Pakistan balances visual appeal with practical functionality. Pakistani consumers increasingly browse and purchase on mobile devices — making mobile-first design non-negotiable. Beyond aesthetics, effective design guides visitors toward a specific action: submitting an enquiry, calling your office, or completing a purchase. We design every page layout with that conversion goal as the primary objective, so your site generates leads rather than just impressions.</p>
+          <h3>Affordable Web Design in Lahore — Quality at Every Budget</h3>
+          <p>Affordable web design does not mean cheap design — it means the right scope of work for your budget, executed properly. We offer transparent pricing based on your actual requirements, from focused single-page landing sites to complex multi-language corporate platforms with CMS integration. Every project, regardless of budget, receives the same quality of design thinking, UX research, and brand alignment. We never use generic templates — every site is built specifically for your business.</p>
+          <h3>Website Redesign Pakistan — When Is It Time for a New Look?</h3>
+          <p>Your website needs a redesign if it looks dated (more than 3–4 years old), loads slowly (over 3 seconds), is not optimised for mobile, or fails to generate enquiries from existing traffic. We conduct a full audit before any redesign — preserving SEO value through proper redirect mapping and technical handover, so your Google rankings are protected throughout the transition. A <a href="/services/web-development-lahore">full web development build</a> often accompanies a redesign for maximum impact.</p>
+          <h3>Web Design and SEO — Why They Must Work Together</h3>
+          <p>A beautiful website that ranks poorly on Google is a lost opportunity. Good web design incorporates SEO from the very first wireframe: clean heading hierarchies (H1, H2, H3), optimised images with descriptive alt text, fast-loading code, semantic HTML structure, and responsive layouts that perform on every device. Our web design company in Pakistan integrates SEO best practices into every design decision — so your site looks great and gets found.</p>
+        </div>
+      </div>
+    </section>
+
     <ServiceFAQ faqs={faqs} title="Web Design Pakistan — FAQs" />
 
     <RelatedServices title="Complete the Picture" services={relatedServices} />

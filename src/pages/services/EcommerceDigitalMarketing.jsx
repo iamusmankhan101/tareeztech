@@ -134,6 +134,25 @@ const EcommerceDigitalMarketing = () => (
       </div>
     </section>
 
+    <section className="sp-section-alt">
+      <div className="sp-container">
+        <motion.div className="sp-section-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="sp-section-label">In Depth</span>
+          <h2 className="sp-section-title">Ecommerce & Digital Marketing in Pakistan — What You Need to Know</h2>
+        </motion.div>
+        <div className="sp-content-block">
+          <h3>Ecommerce in Pakistan — Market Opportunity and Key Challenges</h3>
+          <p>Pakistan's ecommerce market is growing at over 30% annually, driven by increased mobile internet penetration, expanding digital payment adoption, and a young, digitally-native population. Despite this growth, most Pakistani online stores struggle to convert visitors into buyers due to poor website performance, limited payment options, weak product presentation, and absent digital marketing strategies. Businesses that invest in a properly built and professionally marketed ecommerce store today are capturing significant market share ahead of intensifying competition.</p>
+          <h3>WooCommerce vs Shopify — Which Platform Is Right for Pakistan?</h3>
+          <p>For most Pakistani businesses, WooCommerce offers the strongest combination of flexibility and value. It integrates natively with local payment gateways (JazzCash, EasyPaisa, HBL Pay), is fully customisable to your specific workflow, and carries no monthly platform fees beyond hosting. Shopify is best suited for brands targeting international markets who want a simpler setup with less technical overhead. Fully custom ecommerce solutions built on React/Next.js suit high-traffic stores with complex filtering, real-time inventory, or custom checkout flows. We advise on the right platform after understanding your products, budget, and growth plans — never based on what is easiest for us to build.</p>
+          <h3>Ecommerce SEO vs Ecommerce Paid Ads — Where to Start</h3>
+          <p>New ecommerce stores should start with paid advertising for immediate traffic while building SEO in parallel for long-term organic growth. Ecommerce SEO targets product pages, category structure, schema markup, and informational content that brings buyers at every stage of the purchase journey. Google Shopping and Meta Ads deliver instant visibility to purchase-intent buyers. The ideal strategy starts with paid for quick traction, then progressively shifts budget toward SEO as organic rankings build — reducing your cost per acquisition over time. Explore our full <a href="/services/seo-services-lahore">SEO services in Lahore</a> for details on how we approach organic search.</p>
+          <h3>Pakistani Payment Gateway Integration — What Your Store Needs</h3>
+          <p>Cart abandonment in Pakistan spikes when customers reach checkout and do not see their preferred payment method. JazzCash and EasyPaisa wallet payments, bank transfers, and credit card options are the minimum for a competitive Pakistani online store. We integrate all major local gateways — including Meezan Bank, HBL Pay, Bank Alfalah, Sadapay, and Nayapay — alongside international options like Stripe for international buyers. We handle the full technical API integration and assist with merchant account applications, so you can start accepting payments without the administrative headaches.</p>
+        </div>
+      </div>
+    </section>
+
     <ServiceFAQ faqs={faqs} title="Ecommerce & Digital Marketing — FAQs" />
 
     <RelatedServices title="Related Services" services={relatedServices} />
