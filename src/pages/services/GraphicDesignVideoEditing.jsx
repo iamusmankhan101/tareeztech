@@ -47,7 +47,7 @@ const GraphicDesignVideoEditing = () => (
   <>
     <SEOHead
       title="Graphic Design & Video Editing Lahore"
-      description="Professional graphic design & video editing in Lahore. Tareez Tech creates social media graphics, digital marketing posters, brand identity & reels for businesses in Pakistan."
+      description="Professional graphic design & video editing in Lahore. Social media graphics, digital marketing posters, brand identity & reels for businesses across Pakistan."
       canonicalUrl="https://tareeztech.com/services/graphic-design-video-editing"
     />
 

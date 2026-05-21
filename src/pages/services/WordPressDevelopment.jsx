@@ -47,7 +47,7 @@ const WordPressDevelopment = () => (
   <>
     <SEOHead
       title="WordPress Development Services Lahore"
-      description="Expert WordPress development in Lahore by Tareez Tech. Custom themes, WooCommerce, plugin dev & security for Pakistan businesses. No templates — everything built from scratch."
+      description="Expert WordPress development in Lahore. Custom themes, WooCommerce, plugin dev & security for Pakistan businesses. No templates — built from scratch."
       canonicalUrl="https://tareeztech.com/services/wordpress-development"
     />
 

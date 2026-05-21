@@ -48,7 +48,7 @@ const WebDevelopmentLahore = () => (
   <>
     <SEOHead
       title="Web Development Company in Lahore"
-      description="Best web development company in Lahore. Tareez Tech builds custom websites, ecommerce stores & web apps — fast, SEO-ready and conversion-focused for businesses across Pakistan."
+      description="Best web development company in Lahore. We build custom websites, ecommerce stores & web apps — fast, SEO-ready and conversion-focused in Pakistan."
       canonicalUrl="https://tareeztech.com/services/web-development-lahore"
     />
 

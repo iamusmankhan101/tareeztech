@@ -47,7 +47,7 @@ const SocialMediaMarketing = () => (
   <>
     <SEOHead
       title="Social Media Marketing Agency Pakistan"
-      description="Pakistan's leading social media marketing agency. Tareez Tech manages Facebook, Instagram & TikTok to grow your brand, drive real engagement and turn followers into customers."
+      description="Pakistan's leading social media marketing agency. We manage Facebook, Instagram & TikTok to grow your brand and turn followers into paying customers."
       canonicalUrl="https://tareeztech.com/services/social-media-marketing-pakistan"
     />
 

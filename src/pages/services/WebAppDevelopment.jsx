@@ -47,7 +47,7 @@ const WebAppDevelopment = () => (
   <>
     <SEOHead
       title="Web App Development Services Lahore"
-      description="Custom web app development services in Pakistan by Tareez Tech. SaaS platforms, business portals & web apps — built scalable, secure and tailored to your exact requirements."
+      description="Custom web app development in Pakistan by Tareez Tech. SaaS platforms, business portals & web apps built scalable, secure and to your exact requirements."
       canonicalUrl="https://tareeztech.com/services/web-app-development"
     />
 

@@ -47,7 +47,7 @@ const EcommerceDigitalMarketing = () => (
   <>
     <SEOHead
       title="Ecommerce & Digital Marketing Pakistan"
-      description="Grow your online store with Tareez Tech's ecommerce & digital marketing in Pakistan. WooCommerce, Google Shopping, SEO & social ads — integrated for maximum online revenue."
+      description="Grow your store with Tareez Tech's ecommerce & digital marketing in Pakistan. WooCommerce, Google Shopping, SEO & social ads for maximum online revenue."
       canonicalUrl="https://tareeztech.com/services/ecommerce-digital-marketing"
     />
 
