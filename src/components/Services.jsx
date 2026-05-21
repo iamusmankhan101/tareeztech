@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Globe, Palette, Megaphone, BarChart } from 'lucide-react';
 
 const services = [
@@ -8,6 +9,7 @@ const services = [
     title: 'Web Design & Development',
     subtitle: 'Custom Web Development',
     desc: 'Specializing in custom web development and web app development services. We build fast, responsive, and high-converting websites.',
+    href: '/services/web-development-lahore',
   },
   {
     icon: BarChart,
@@ -15,18 +17,21 @@ const services = [
     subtitle: 'Top Digital Marketing Agency',
     desc: 'As a top digital marketing agency in Lahore, we offer a full digital marketing services list including SEO, PPC, and content strategy.',
     featured: true,
+    href: '/services/digital-marketing-lahore',
   },
   {
     icon: Palette,
     title: 'Creative & Design',
     subtitle: 'Graphic Design & Video Editing',
     desc: 'Expert graphic design and video editing to fuel your social media. We create the perfect digital marketing poster and visual identity for your brand.',
+    href: '/services/graphic-design-video-editing',
   },
   {
     icon: Megaphone,
     title: 'Ecommerce Solutions',
     subtitle: 'Ecommerce & Digital Marketing',
     desc: 'Seamlessly integrating ecommerce and digital marketing to turn your visitors into loyal customers.',
+    href: '/services/ecommerce-digital-marketing',
   },
 ];
 
@@ -122,7 +127,7 @@ const Services = () => {
                     </motion.p>
                   )}
                 </div>
-                <a href="#contact" className="service-card-btn">Talk With Us</a>
+                <Link to={s.href} className="service-card-btn">Learn More</Link>
               </motion.div>
             );
           })}

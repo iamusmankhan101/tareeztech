@@ -8,7 +8,17 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
+import DigitalMarketingLahore from './pages/services/DigitalMarketingLahore';
+import SeoServicesLahore from './pages/services/SeoServicesLahore';
+import SocialMediaMarketing from './pages/services/SocialMediaMarketing';
+import WebDevelopmentLahore from './pages/services/WebDevelopmentLahore';
+import WebDesignPakistan from './pages/services/WebDesignPakistan';
+import WebAppDevelopment from './pages/services/WebAppDevelopment';
+import WordPressDevelopment from './pages/services/WordPressDevelopment';
+import GraphicDesignVideoEditing from './pages/services/GraphicDesignVideoEditing';
+import EcommerceDigitalMarketing from './pages/services/EcommerceDigitalMarketing';
 import './App.css';
+import './service-pages.css';
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
@@ -75,6 +85,15 @@ function AppContent() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/services/digital-marketing-lahore" element={<DigitalMarketingLahore />} />
+          <Route path="/services/seo-services-lahore" element={<SeoServicesLahore />} />
+          <Route path="/services/social-media-marketing-pakistan" element={<SocialMediaMarketing />} />
+          <Route path="/services/web-development-lahore" element={<WebDevelopmentLahore />} />
+          <Route path="/services/web-design-pakistan" element={<WebDesignPakistan />} />
+          <Route path="/services/web-app-development" element={<WebAppDevelopment />} />
+          <Route path="/services/wordpress-development" element={<WordPressDevelopment />} />
+          <Route path="/services/graphic-design-video-editing" element={<GraphicDesignVideoEditing />} />
+          <Route path="/services/ecommerce-digital-marketing" element={<EcommerceDigitalMarketing />} />
         </Routes>
       </main>
       <Footer />

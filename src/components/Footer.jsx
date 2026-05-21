@@ -1,27 +1,33 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
-const links = {
-  Company: [
-    { label: 'About Us', href: '/#about' },
-    { label: 'Our Work', href: '/#work' },
-    { label: 'Digital Marketing Portfolio', href: '/#work' },
-    { label: 'Digital Marketing Jobs in Lahore', href: '/#contact' },
-    { label: 'Contact', href: '/#contact' },
-  ],
-  Services: [
-    { label: 'Custom Web Development', href: '/#services' },
-    { label: 'Web App Development Services', href: '/#services' },
-    { label: 'Digital Marketing Lahore', href: '/#services' },
-    { label: 'Graphic Design Video Editing', href: '/#services' },
-    { label: 'Ecommerce & Digital Marketing', href: '/#services' },
-  ],
-  Legal: [
-    { label: 'Privacy Policy', href: '/privacy-policy' },
-    { label: 'Terms of Service', href: '/terms-and-conditions' },
-    { label: 'Cookie Policy', href: '/privacy-policy' },
-  ],
-};
+const companyLinks = [
+  { label: 'About Us', href: '/#about' },
+  { label: 'Our Work & Portfolio', href: '/#work' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/#contact' },
+];
+
+const digitalMarketingLinks = [
+  { label: 'Digital Marketing Lahore', href: '/services/digital-marketing-lahore' },
+  { label: 'SEO Services Lahore', href: '/services/seo-services-lahore' },
+  { label: 'Social Media Marketing', href: '/services/social-media-marketing-pakistan' },
+  { label: 'Ecommerce & Digital Marketing', href: '/services/ecommerce-digital-marketing' },
+];
+
+const webLinks = [
+  { label: 'Web Development Lahore', href: '/services/web-development-lahore' },
+  { label: 'Web Design Pakistan', href: '/services/web-design-pakistan' },
+  { label: 'Web App Development', href: '/services/web-app-development' },
+  { label: 'WordPress Development', href: '/services/wordpress-development' },
+  { label: 'Graphic Design & Video Editing', href: '/services/graphic-design-video-editing' },
+];
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms of Service', href: '/terms-and-conditions' },
+];
 
 const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/tareez.tech/' },
@@ -93,23 +99,38 @@ const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Link cols */}
-            {Object.entries(links).map(([group, items]) => (
-              <motion.div
-                key={group}
-                className="footer-link-col"
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              >
-                <h4 className="footer-col-title">{group}</h4>
-                <ul>
-                  {items.map((item) => (
-                    <li key={item.label}>
-                      <a href={item.href} className="footer-link">{item.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+            {/* Company col */}
+            <motion.div className="footer-link-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
+              <h4 className="footer-col-title">Company</h4>
+              <ul>
+                {companyLinks.map((item) => (
+                  <li key={item.label}><a href={item.href} className="footer-link">{item.label}</a></li>
+                ))}
+                {legalLinks.map((item) => (
+                  <li key={item.label}><Link to={item.href} className="footer-link">{item.label}</Link></li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Digital Marketing col */}
+            <motion.div className="footer-link-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
+              <h4 className="footer-col-title">Digital Marketing</h4>
+              <ul>
+                {digitalMarketingLinks.map((item) => (
+                  <li key={item.label}><Link to={item.href} className="footer-link">{item.label}</Link></li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Web Services col */}
+            <motion.div className="footer-link-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
+              <h4 className="footer-col-title">Web Services</h4>
+              <ul>
+                {webLinks.map((item) => (
+                  <li key={item.label}><Link to={item.href} className="footer-link">{item.label}</Link></li>
+                ))}
+              </ul>
+            </motion.div>
           </motion.div>
 
           {/* Bottom bar */}

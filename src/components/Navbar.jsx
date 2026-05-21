@@ -1,11 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const serviceLinks = [
+  { name: 'Digital Marketing Lahore', href: '/services/digital-marketing-lahore' },
+  { name: 'SEO Services Lahore', href: '/services/seo-services-lahore' },
+  { name: 'Social Media Marketing', href: '/services/social-media-marketing-pakistan' },
+  { name: 'Web Development Lahore', href: '/services/web-development-lahore' },
+  { name: 'Web Design Pakistan', href: '/services/web-design-pakistan' },
+  { name: 'Web App Development', href: '/services/web-app-development' },
+  { name: 'WordPress Development', href: '/services/wordpress-development' },
+  { name: 'Graphic Design & Video Editing', href: '/services/graphic-design-video-editing' },
+  { name: 'Ecommerce & Digital Marketing', href: '/services/ecommerce-digital-marketing' },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const servicesRef = useRef(null);
   const location = useLocation();
   const isLightMode = location.pathname.startsWith('/blog');
 
@@ -15,9 +30,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const navLinks = [
     { name: 'Work', href: '/#work' },
-    { name: 'Services', href: '/#services' },
     { name: 'About', href: '/#about' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/#contact' },
@@ -70,6 +94,46 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="desktop-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <a
+            href="/#work"
+            style={{ padding: '8px 18px', fontSize: 14, fontWeight: 500, color: isLightMode ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)', textDecoration: 'none', transition: 'color 0.2s', borderRadius: 8 }}
+            onMouseEnter={e => (e.currentTarget.style.color = isLightMode ? '#000' : '#fff')}
+            onMouseLeave={e => (e.currentTarget.style.color = isLightMode ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)')}
+          >Work</a>
+
+          {/* Services Dropdown */}
+          <div ref={servicesRef} className="nav-dropdown">
+            <button
+              onClick={() => setServicesOpen(!servicesOpen)}
+              style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '8px 18px', fontSize: 14, fontWeight: 500, color: isLightMode ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)', background: 'none', border: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'inherit', transition: 'color 0.2s' }}
+              onMouseEnter={e => (e.currentTarget.style.color = isLightMode ? '#000' : '#fff')}
+              onMouseLeave={e => (e.currentTarget.style.color = isLightMode ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)')}
+              aria-expanded={servicesOpen}
+              aria-haspopup="true"
+            >
+              Services <ChevronDown size={14} style={{ transition: 'transform 0.2s', transform: servicesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+            </button>
+            <AnimatePresence>
+              {servicesOpen && (
+                <motion.div
+                  className={`nav-dropdown-menu${isLightMode ? ' nav-dropdown-menu--light' : ''}`}
+                  initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  {serviceLinks.map((s) => (
+                    <Link key={s.href} to={s.href} className="nav-dropdown-link" onClick={() => setServicesOpen(false)}
+                      style={{ display: 'block', padding: '10px 16px', fontSize: '0.85rem', fontWeight: 500, color: isLightMode ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.65)', textDecoration: 'none', borderRadius: 10, transition: 'all 0.2s' }}
+                      onMouseEnter={e => { e.currentTarget.style.color = isLightMode ? '#000' : '#fff'; e.currentTarget.style.background = isLightMode ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = isLightMode ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.65)'; e.currentTarget.style.background = 'transparent'; }}
+                    >{s.name}</Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -144,6 +208,25 @@ const Navbar = () => {
             }}
           >
             <div style={{ padding: '12px 24px 24px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <a href="/#work" onClick={() => setIsOpen(false)} style={{ padding: '14px 16px', fontSize: 16, fontWeight: 500, color: 'rgba(255,255,255,0.8)', textDecoration: 'none', borderRadius: 12 }}>Work</a>
+
+              {/* Mobile Services Accordion */}
+              <button
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', fontSize: 16, fontWeight: 500, color: 'rgba(255,255,255,0.8)', background: 'none', border: 'none', cursor: 'pointer', borderRadius: 12, fontFamily: 'inherit', width: '100%', textAlign: 'left' }}
+              >
+                Services <ChevronDown size={16} style={{ transition: 'transform 0.2s', transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              </button>
+              <AnimatePresence>
+                {mobileServicesOpen && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} style={{ overflow: 'hidden', paddingLeft: 16 }}>
+                    {serviceLinks.map((s) => (
+                      <Link key={s.href} to={s.href} onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }} style={{ display: 'block', padding: '10px 16px', fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,0.6)', textDecoration: 'none', borderRadius: 10 }}>{s.name}</Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {navLinks.map((link) => (
                 <a
                   key={link.name}
