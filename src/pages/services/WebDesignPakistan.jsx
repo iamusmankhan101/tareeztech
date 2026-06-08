@@ -47,7 +47,7 @@ const WebDesignPakistan = () => (
   <>
     <SEOHead
       title="Website Design Company Pakistan"
-      description="Affordable website design in Pakistan by Tareez Tech. Mobile-first, SEO-ready designs for Lahore, Karachi & Islamabad businesses. Free quote available."
+      description="Affordable website design in Pakistan by Tareez Tech. Mobile-first, SEO-ready designs for Lahore, Karachi & Islamabad. Free quote."
       canonicalUrl="https://tareeztech.com/services/web-design-pakistan"
     />
 

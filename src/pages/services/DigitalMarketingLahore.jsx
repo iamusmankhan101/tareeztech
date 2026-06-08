@@ -48,7 +48,7 @@ const DigitalMarketingLahore = () => (
   <>
     <SEOHead
       title="Digital Marketing Agency in Lahore"
-      description="Lahore's top digital marketing agency. We offer SEO, PPC, social media & content marketing that drive real leads and measurable ROI for businesses in Pakistan."
+      description="Lahore's top digital marketing agency. SEO, PPC, social media & content marketing that drives real leads and measurable ROI in Pakistan."
       canonicalUrl="https://tareeztech.com/services/digital-marketing-lahore"
     />
 
